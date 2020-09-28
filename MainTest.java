@@ -1,8 +1,17 @@
-//package project;
+/*******************************************************************************
+ * Author: Devin Monday, Tyle West, Paul Hood  
+ * Class: CIS 365
+ * Date: 9/27/2020
+ * Description: The main program that uses depth first search to search a path
+ * 				between two nodes.
+ ******************************************************************************/
+
+package project;
 import java.util.*;
 
 public class MainTest {
 	
+	//Used for testing. Prints out the node and all connected nodes. (-1 for walls)
 	static void printBlock(int i, int j,Board t) {
 		System.out.println("_______________________");
 		
@@ -12,6 +21,7 @@ public class MainTest {
 		System.out.println(t.boards[i][j].sw + " " + t.boards[i][j].s + " " + t.boards[i][j].se);
 	}
 	
+	//Depth first search algorithm. The program will always travel to the east node, then clockwise if it can't travel east.
 	static boolean dfs(int startRow, int startCol, Board t, Stack s) {
 		int tmpId = 0;
 		int tmprow = 0;
@@ -109,7 +119,8 @@ public class MainTest {
 		Stack nodeStack = new Stack();
 		Board test = new Board();
 		boolean isFound;
-		
+
+//Prints out the 2d array with the node Ids Not used for searching.
 //		int i, j;
 		
 //		for(i = 0; i < 16; i++) {
@@ -126,14 +137,7 @@ public class MainTest {
 		test.createMap();
 		test.boards[9][9].setGoal(true); //SET GOAL NODE HERE!
 		isFound = dfs(2,2,test,nodeStack);
-//		printBlock(7,7,test);
-//		
-//		printBlock(8,8,test);
-//		
-//		printBlock(7,8,test);
-//		
-//		printBlock(8,7,test);
-//		
-//		printBlock(6,9,test);
+
 	}
 }
+
