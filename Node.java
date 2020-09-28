@@ -1,17 +1,25 @@
+/*******************************************************************************
+ * Author: Devin Monday, Tyle West, Paul Hood  
+ * Class: CIS 365
+ * Date: 9/27/2020
+ * Description: Creates a node, or a tile that is on the board.
+ ******************************************************************************/
+
 //package project;
 
 public class Node {
 	private int id;
 	private int x,y;
-	public int n, s, e, w, ne, nw, se, sw;
+	public int n, s, e, w, ne, nw, se, sw; //The directions a node can be connected to.
 	private boolean isGoal, hasVisted;
 	
 	public Node() {
 		setId(0);
 		setGoal(false);
 		setHasVisted(false);
+
 		x = y = 0;
-		n = s = e = w = ne = nw = se = sw = -1;
+		n = s = e = w = ne = nw = se = sw = -1; //-1 meaning that side isn't connected to a node. 
 	}
 	
 	
@@ -20,6 +28,9 @@ public class Node {
 		y = col;
 	}
 	
+
+	
+	//Connects the node to another node.
 	public void connectNode(int nodeId, int row, int col) {
 		if(row == x && col > y)  //East
 			e = nodeId;
@@ -41,6 +52,7 @@ public class Node {
 			 System.out.println("Error connecting Node!");
 	}
 	
+	//Disconnects a node from another node.
 	public void disconnectNode(int nodeId) {
 		if(n == nodeId)
 			n = -1;
@@ -87,3 +99,4 @@ public class Node {
 		this.hasVisted = hasVisted;
 	}
 }
+
