@@ -1,3 +1,10 @@
+/*******************************************************************************
+ * Author: Devin Monday, Tyle West, Paul Hood  
+ * Class: CIS 365
+ * Date: 9/27/2020
+ * Description: Creates a board of nodes that are connected to eachother according to the map.
+ ******************************************************************************/
+
 //package project;
 
 public class Board {
@@ -17,7 +24,7 @@ public class Board {
 			}
 		}
 		
-		//connects all the nodes as if they re are no walls.
+		//connects all the nodes as if there are no walls.
 		for(row = 0; row < size; row++) {
 			for(col = 0; col < size; col++) {
 				if(row - 1 >= 0) {
@@ -53,6 +60,7 @@ public class Board {
 		two.disconnectNode(one.getId());
 	}
 	
+	//Adds a series of walls in a vertical line.
 	public void addVertWallLine(int r, int c, int dist) {
 		int i;
 		if(dist == 1)
@@ -67,6 +75,7 @@ public class Board {
 		}
 	}
 	
+	//Adds a series of walls in a horizontal line.
 	public void addHorizWallLine(int r, int c, int dist) {
 		int i;
 		if(dist == 1)
@@ -81,9 +90,10 @@ public class Board {
 		}
 	}
 	
-	//Adds walls at the corners
+	//Adds walls at the corners if needed.
 	public void addCorners(Node tile, int r, int c) {
-		if(tile.n == tile.w && tile.nw != -1)
+		//If the north and west side of a node is blocked off by a wall, then the north west side of the node is also blocked by a wall.
+		if(tile.n == tile.w && tile.nw != -1)          
 			addWall(boards[r][c],boards[r-1][c-1]);
 		
 		if(tile.n == tile.e && tile.ne != -1)
@@ -107,11 +117,11 @@ public class Board {
 		addWall(boards[r][c],boards[r][c-1]);
 		addWall(boards[r][c],boards[r][c+1]);	
 	}
-	//Adds the walls.
+	//Creates the map by adding walls to it.
 	public void createMap() {
 		int c, r;
 		
-		//Adds vertical Walls
+		//Adds the vertical walls
 		c = 1;
 		addVertWallLine(3,c,4);
 		addVertWallLine(8,c,3);
@@ -152,7 +162,7 @@ public class Board {
 		addVertWallLine(9,c,2);
 		
 		
-		//Adds Horizontal Walls
+		//Adds the horizontal walls
 		
 		r = 1;
 		addHorizWallLine(r,3,2);
@@ -199,8 +209,10 @@ public class Board {
 		addBlock(8,7);
 		addBlock(8,8);
 		
+		//checks and adds walls for corners that may need walls.
 		for(r = 0; r < size; r++)
 			for(c = 0; c < size; c++)
 				addCorners(boards[r][c],r,c);
 	}
 }
+
