@@ -1,6 +1,9 @@
 package ai;
+import java.util.*;
 
 public class Movement {
+	
+	
 	//Goes east
 	static String goE(int startRow, int startCol, Board t){
 		int tmpId = t.boards[startRow][startCol].e;
@@ -100,6 +103,7 @@ public class Movement {
 	//takes in a id position string "YX" y is up down x is left right
 	//method gets and returns new string name id with A1, B2, A4, etc format
 	//Y is row X is col
+	//Returns string version of position id
 	public static String getName(String id) {
 		String name;
 		String rows = "";
@@ -165,7 +169,6 @@ public class Movement {
 	}
 		
 	//gets the row in int form from an id string
-	//FIX this
 	public static int getRow(String id) {
 		String rowChar = "";
 		int rowInt = 0;
@@ -177,5 +180,39 @@ public class Movement {
 			}
 		}
 		return rowInt;
+	}
+	
+	//returns list of moves within 1 square range
+	public static List<String> getMoves1(int row, int col, Board t) {
+		List<String> moves = new ArrayList<String>();
+		List<String> directions = new ArrayList<String>();
+		
+		
+		//each pos id around a square in string format
+		String N = goN(row,col, t);
+		String S = goS(row,col,t);
+		String E = goE(row,col,t);
+		String W = goW(row,col,t);
+		String NW = goNW(row,col,t);
+		String NE = goNE(row,col,t);
+		String SW = goSW(row,col,t);
+		String SE = goSE(row,col,t);
+		
+		directions.add(N);
+		directions.add(S);
+		directions.add(E);
+		directions.add(W);
+		directions.add(NE);
+		directions.add(NW);
+		directions.add(SE);
+		directions.add(SW);
+		
+		for(int i = 0; i < directions.size(); i++) {
+			String s = directions.get(i);
+			if(s.length() != 0) {
+				moves.add(s);	
+			}
+		}
+		return moves;
 	}
 }
