@@ -182,11 +182,20 @@ public class Movement {
 		return rowInt;
 	}
 	
+	//is in list function sees if a string is in a list or not
+	public static boolean isInList(List<String> list, String s) {
+		for(int i = 0; i < list.size(); i++) {
+			if(list.get(i).equals(s)) {
+				return true;
+			}
+		}
+		return false;
+	}
+	
 	//returns list of moves within 1 square range
 	public static List<String> getMoves1(int row, int col, Board t) {
 		List<String> moves = new ArrayList<String>();
 		List<String> directions = new ArrayList<String>();
-		
 		
 		//each pos id around a square in string format
 		String N = goN(row,col, t);
@@ -214,5 +223,29 @@ public class Movement {
 			}
 		}
 		return moves;
+	}
+	// gets all moves within movement of 2
+	//returns in a list includes no move which is technically move to starting point
+	public static List<String> getAllMoves(int row, int col, Board t, int move){
+		List<String> allMoves = new ArrayList<String>();
+		
+		//gets first step of possible movement from a square
+		List<String> firstMoves = getMoves1(row,col,t);
+		
+		//goes through first set of moves
+		for(int i = 0; i < firstMoves.size(); i++) {
+			int row2 = getRow(firstMoves.get(i));
+			int col2 = getRow(firstMoves.get(i));
+			List<String> newList = getMoves1(row2, col2, t);
+			
+			//goes through new list of moves only adding if not in list
+			for(int j = 0; j < newList.size(); j++) {
+				String s = newList.get(j);
+				if(!isInList(allMoves, s)){
+					allMoves.add(s);
+				}
+			}
+		}
+		return allMoves;
 	}
 }
