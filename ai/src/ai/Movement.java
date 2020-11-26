@@ -224,27 +224,42 @@ public class Movement {
 		}
 		return moves;
 	}
-	// gets all moves within movement of 2
-	//returns in a list includes no move which is technically move to starting point
-	public static List<String> getAllMoves(int row, int col, Board t, int move){
-		List<String> allMoves = new ArrayList<String>();
-		
-		//gets first step of possible movement from a square
-		List<String> firstMoves = getMoves1(row,col,t);
-		
-		//goes through first set of moves
-		for(int i = 0; i < firstMoves.size(); i++) {
-			int row2 = getRow(firstMoves.get(i));
-			int col2 = getRow(firstMoves.get(i));
-			List<String> newList = getMoves1(row2, col2, t);
-			
-			//goes through new list of moves only adding if not in list
-			for(int j = 0; j < newList.size(); j++) {
-				String s = newList.get(j);
-				if(!isInList(allMoves, s)){
-					allMoves.add(s);
+	
+	//takes in a list of moves and gets all around each of them
+	public static List<String> getMovesFromList(List<String> list, Board t) {
+		List<String> moves = new ArrayList<String>();
+		List<String> temp = new ArrayList<String>();
+		int row;
+		int col;
+		String s;
+		String v;
+		for(int i = 0; i< list.size(); i++) {
+			s = list.get(i);
+			row = getRow(s);
+			col = getCol(s);
+			temp = getMoves1(row,col,t);
+			for(int k = 0; k < temp.size(); k++) {
+				v = temp.get(k);
+				if(!isInList(moves, v)) {
+					moves.add(v);
 				}
 			}
+		}
+		return moves;
+	}
+	//gets all the moves in a set distance using a loc string ex A1 and a distance number like 8
+	public static List<String> getAllMoves (String loc, int dist, Board t){
+		List<String> allMoves = new ArrayList<String>();
+		int row = getRow(loc);
+		int col = getCol(loc);
+		allMoves = getMoves1(row, col, t);
+		dist = dist -1;
+		
+		for(int i = 0; i < dist; i++) {
+			allMoves = getMovesFromList(allMoves, t);
+		}
+		if(!isInList(allMoves, loc)) {
+			allMoves.add(loc);
 		}
 		return allMoves;
 	}
