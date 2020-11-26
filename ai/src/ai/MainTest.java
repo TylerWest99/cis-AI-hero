@@ -16,7 +16,7 @@ public class MainTest {
 
 		test.createMap();
 
-		List<String> list = Movement.getAllMoves("A1", 3, test);
+		List<String> list = Movement.getAllMoves("A1", 8, test);
 		for(int i = 0; i < list.size(); i++) {
 			print(list.get(i));
 		}
