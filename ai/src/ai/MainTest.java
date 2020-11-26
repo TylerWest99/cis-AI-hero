@@ -12,15 +12,14 @@ public class MainTest {
 	}
 	
 	public static void main(String[] args) {
-		Board test = new Board();
+		Board t = new Board();
 
-		test.createMap();
+		t.createMap();
 
-		List<String> list = Movement.getAllMoves("A1", 8, test);
-		for(int i = 0; i < list.size(); i++) {
-			print(list.get(i));
+		List<String> moves = Movement.getAllMoves("B15", 2, t);
+		for(int i = 0; i < moves.size(); i++) {
+			print(moves.get(i));
 		}
-		print("printing all possible moves from A1 in range of 3");
-		print(list.size());
+		print(moves.size());
 	}
 }

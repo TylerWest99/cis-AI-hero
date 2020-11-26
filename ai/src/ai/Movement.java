@@ -3,6 +3,19 @@ import java.util.*;
 
 public class Movement {
 	
+	//list for all water spots on the board
+	static List<String> waterSpots = new ArrayList<String>(Arrays.asList("D10", "D11", "D12", "E10", "E0", "E8", "E1", "F1", "F9", "G1", "G2", "G3", "G7", "G8",
+			"G9", "H10", "H7", "H6", "H5", "H4", "H3", "I3", "I4", "I5", "I7", "I10", "I11", "J14", "J13", "J12", "J10", "J9", "J8", "J3", "J2", "J1", "K1",
+			"K14", "L1", "L14", "L15"));
+
+	public static boolean isInWater(String loc) {
+		for(int i = 0; i < waterSpots.size(); i++) {
+			if(loc.equals(waterSpots.get(i))){
+				return true;
+			}
+		}
+		return false;
+	}
 	
 	//Goes east
 	static String goE(int startRow, int startCol, Board t){
@@ -148,32 +161,32 @@ public class Movement {
 		return name;
 	}
 	
-	//gets the column in int form from an id string
-	public static int getCol(String id) {
+	//gets the column in int form from an loc string
+	public static int getY(String loc) {
 		String colChar = "";
 		int colInt = 0;
-		if(id.length() == 2) {
-			colChar = id.substring(1);
+		if(loc.length() == 2) {
+			colChar = loc.substring(1);
 			colInt = Integer.parseInt(colChar)-1;
 		}
-		if(id.length() == 3) {
-			if(id.charAt(0) == '1') {
-				colChar = id.substring(2,3);
+		if(loc.length() == 3) {
+			if(loc.charAt(0) == '1') {
+				colChar = loc.substring(2,3);
 				colInt = Integer.parseInt(colChar)-1;
 			}else {
-				colChar = id.substring(1,3);
+				colChar = loc.substring(1,3);
 				colInt = Integer.parseInt(colChar)-1;
 			}
 		}
 		return colInt;
 	}
 		
-	//gets the row in int form from an id string
-	public static int getRow(String id) {
+	//gets the row in int form from an loc string
+	public static int getX(String loc) {
 		String rowChar = "";
 		int rowInt = 0;
 		String[] lettersArray = new String[]{"A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P"};
-		rowChar = id.substring(0,1);
+		rowChar = loc.substring(0,1);
 		for(int i = 0; i < lettersArray.length; i++) {
 			if(rowChar.equals(lettersArray[i])) {
 				rowInt = i;
@@ -229,15 +242,15 @@ public class Movement {
 	public static List<String> getMovesFromList(List<String> list, Board t) {
 		List<String> moves = new ArrayList<String>();
 		List<String> temp = new ArrayList<String>();
-		int row;
-		int col;
+		int x;
+		int y;
 		String s;
 		String v;
 		for(int i = 0; i< list.size(); i++) {
 			s = list.get(i);
-			row = getRow(s);
-			col = getCol(s);
-			temp = getMoves1(row,col,t);
+			x = getX(s);
+			y = getY(s);
+			temp = getMoves1(y,x,t);
 			for(int k = 0; k < temp.size(); k++) {
 				v = temp.get(k);
 				if(!isInList(moves, v)) {
@@ -248,11 +261,12 @@ public class Movement {
 		return moves;
 	}
 	//gets all the moves in a set distance using a loc string ex A1 and a distance number like 8
+	//eventually goal is to remove dist and use hero class to access move dist
 	public static List<String> getAllMoves (String loc, int dist, Board t){
 		List<String> allMoves = new ArrayList<String>();
-		int row = getRow(loc);
-		int col = getCol(loc);
-		allMoves = getMoves1(row, col, t);
+		int x = getX(loc);
+		int y = getY(loc);
+		allMoves = getMoves1(y, x, t);
 		dist = dist -1;
 		
 		for(int i = 0; i < dist; i++) {
