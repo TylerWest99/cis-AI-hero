@@ -24,9 +24,9 @@ public class Movement {
 		int tmpCol = tmpId%16;
 		String pos = "None";
 		if(tmpId != -1) {
-			pos = Integer.toString(tmpRow)+Integer.toString(tmpCol);
+			return getName(tmpCol, tmpRow);
 		}
-		return getName(pos);
+		return "None";
 	}
 			
 	//Goes west
@@ -36,9 +36,9 @@ public class Movement {
 		int tmpCol = tmpId%16;
 		String pos = "None";
 		if(tmpId != -1) {
-		pos = Integer.toString(tmpRow)+Integer.toString(tmpCol);
+			return getName(tmpCol, tmpRow);
 		}
-		return getName(pos);
+		return "None";
 	}
 			
 	//Goes north
@@ -48,9 +48,9 @@ public class Movement {
 		int tmpCol = tmpId%16;
 		String pos = "None";
 		if(tmpId != -1) {
-			pos = Integer.toString(tmpRow)+Integer.toString(tmpCol);
+			return getName(tmpCol, tmpRow);
 		}
-		return getName(pos);
+		return "None";
 	}
 			
 	//Goes south
@@ -60,9 +60,9 @@ public class Movement {
 		int tmpCol = tmpId%16;
 		String pos = "None";
 		if(tmpId != -1) {
-			pos = Integer.toString(tmpRow)+Integer.toString(tmpCol);
+			return getName(tmpCol, tmpRow);
 		}
-		return getName(pos);
+		return "None";
 	}
 			
 	//Goes north east
@@ -72,9 +72,9 @@ public class Movement {
 		int tmpCol = tmpId%16;
 		String pos = "None";
 		if(tmpId != -1) {
-			pos = Integer.toString(tmpRow)+Integer.toString(tmpCol);
+			return getName(tmpCol, tmpRow);
 		}
-		return getName(pos);
+		return "None";
 	}
 			
 	//Goes south east
@@ -84,9 +84,9 @@ public class Movement {
 		int tmpCol = tmpId%16;
 		String pos = "None";
 		if(tmpId != -1) {
-			pos = Integer.toString(tmpRow)+Integer.toString(tmpCol);
+			return getName(tmpCol, tmpRow);
 		}
-		return getName(pos);
+		return "None";
 	}
 			
 	//Goes south west
@@ -96,9 +96,9 @@ public class Movement {
 		int tmpCol = tmpId%16;
 		String pos = "None";
 		if(tmpId != -1) {
-			pos = Integer.toString(tmpRow)+Integer.toString(tmpCol);
+			return getName(tmpCol, tmpRow);
 		}
-		return getName(pos);
+		return "None";
 	}
 			
 	//Goes north west
@@ -108,19 +108,21 @@ public class Movement {
 		int tmpCol = tmpId%16;
 		String pos = "None";
 		if(tmpId != -1) {
-			pos = Integer.toString(tmpRow)+Integer.toString(tmpCol);
+			return getName(tmpCol, tmpRow);
 		}
-		return getName(pos);
+		return "None";
 	}
 	
 	//takes in a id position string "YX" y is up down x is left right
 	//method gets and returns new string name id with A1, B2, A4, etc format
 	//Y is row X is col
 	//Returns string version of position id
-	public static String getName(String id) {
+	//this function has errors if size is 3 and starts with 1
+	public static String getName(int y, int x) {
 		String name;
-		String rows = "";
-		String cols = "";
+		String rows = Integer.toString(x);
+		String cols = Integer.toString(y);
+		/*
 		if(id.length() == 4) {
 			rows = id.substring(0, 2);
 			cols = id.substring(2,4);
@@ -129,8 +131,8 @@ public class Movement {
 			rows = id.substring(0,1);
 			cols = id.substring(1,2);
 		}
-		if(id.length() ==3) {
-			if(id.charAt(0) == '1') {
+		if(id.length() == 3) {
+			if(id.charAt(0) == '1' ) {
 				rows = id.substring(0,2);
 				cols = id.substring(2,3);
 			}else {
@@ -140,6 +142,7 @@ public class Movement {
 		}
 		//String rows = id.substring(0,1);
 		//String cols = id.substring(1);
+		 */
 		String col2 = "";
 		String row2 = "";
 		String[] lettersArray = new String[]{"A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P"};

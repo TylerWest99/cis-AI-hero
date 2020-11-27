@@ -10,7 +10,7 @@ import org.junit.jupiter.api.Test;
 
 import java.util.*;
 
-class MovementTest {
+public class MovementTest {
 	Board t = new Board();
 
 	//testing water
@@ -71,30 +71,15 @@ class MovementTest {
 		List<String> list = new ArrayList<String>(Arrays.asList("A1", "A2", "A3"));
 		assertFalse(Movement.isInList(list, "A4"));
 	}
-
+	
+	//test directions functionality
+	//errors with goE and goW I think
 	@Test
-	void testGetMoves1() {
-		List<String> list = Movement.getMoves1(Movement.getY("D4"), Movement.getX("D4"), t);
-		List<String> correct = new ArrayList<String>(Arrays.asList("C4", "C3", "D3"));
-		int count = 0;
-		String s = "";
-		for(int i = 0; i < list.size(); i++) {
-			s = list.get(i);
-			if(Movement.isInList(correct, s)) {
-				count++;
-			}
-		}
-		assertTrue(count == correct.size());
+	void testE() {
+		String id;
+		id = Movement.goE(1, 12, t);
+		assertTrue(id.equals("N2"));
 	}
-
-	@Test
-	void testGetMovesFromList() {
-		
-	}
-
-	@Test
-	void testGetAllMoves() {
-		
-	}
+	
 
 }
