@@ -122,27 +122,7 @@ public class Movement {
 		String name;
 		String rows = Integer.toString(x);
 		String cols = Integer.toString(y);
-		/*
-		if(id.length() == 4) {
-			rows = id.substring(0, 2);
-			cols = id.substring(2,4);
-		}
-		if(id.length() == 2) {
-			rows = id.substring(0,1);
-			cols = id.substring(1,2);
-		}
-		if(id.length() == 3) {
-			if(id.charAt(0) == '1' ) {
-				rows = id.substring(0,2);
-				cols = id.substring(2,3);
-			}else {
-				rows = id.substring(0,1);
-				cols = id.substring(1,3);
-			}
-		}
-		//String rows = id.substring(0,1);
-		//String cols = id.substring(1);
-		 */
+
 		String col2 = "";
 		String row2 = "";
 		String[] lettersArray = new String[]{"A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P"};
@@ -233,9 +213,8 @@ public class Movement {
 		directions.add(SW);
 		
 		for(int i = 0; i < directions.size(); i++) {
-			String s = directions.get(i);
-			if(s.length() != 0) {
-				moves.add(s);	
+			if(directions.get(i).length() != 0 && directions.get(i).length() != 4) {
+				moves.add(directions.get(i));	
 			}
 		}
 		return moves;
