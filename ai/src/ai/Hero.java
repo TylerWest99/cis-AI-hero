@@ -26,6 +26,11 @@ public class Hero {
 		return this.click;
 	}
 	
+	//gets the heros movement
+	public int getMove() {
+		return this.move;
+	}
+	
 	//returns true if hero is koed false if still alive
 	public boolean isKoed() {
 		if(isKo) {

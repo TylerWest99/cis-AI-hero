@@ -189,7 +189,8 @@ public class Movement {
 	}
 	
 	//returns list of moves within 1 square range
-	public static List<String> getMoves1(int row, int col, Board t) {
+	//basically a bloom out in dfs but only one of them
+	public static List<String> bloom(int row, int col, Board t) {
 		List<String> moves = new ArrayList<String>();
 		List<String> directions = new ArrayList<String>();
 		
@@ -232,7 +233,7 @@ public class Movement {
 			s = list.get(i);
 			x = getX(s);
 			y = getY(s);
-			temp = getMoves1(y,x,t);
+			temp = bloom(y,x,t);
 			for(int k = 0; k < temp.size(); k++) {
 				v = temp.get(k);
 				if(!isInList(moves, v)) {
@@ -248,7 +249,7 @@ public class Movement {
 		List<String> allMoves = new ArrayList<String>();
 		int x = getX(loc);
 		int y = getY(loc);
-		allMoves = getMoves1(y, x, t);
+		allMoves = bloom(y, x, t);
 		dist = dist -1;
 		
 		for(int i = 0; i < dist; i++) {
