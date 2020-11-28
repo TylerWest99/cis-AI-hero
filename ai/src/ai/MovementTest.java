@@ -24,15 +24,15 @@ public class MovementTest {
 		assertEquals(Movement.isInWater("E9"), false);
 	}
 	
-	//tests converting id in "00" form to loc form "A1"
+	//tests converting id in x,y format form to loc form "A1"
 	@Test
 	void testGetName() {
-		assertEquals(Movement.getName("00"), "A1");
+		assertEquals(Movement.getName(1, 15), "B16");
 	}
 	
 	@Test
 	void testGetName2() {
-		assertEquals(Movement.getName("86"), "G9");
+		assertEquals(Movement.getName(6, 8), "G9");
 	}
 	
 	//tests getting the column from a loc
