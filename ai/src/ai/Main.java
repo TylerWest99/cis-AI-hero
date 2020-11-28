@@ -15,11 +15,13 @@ public class Main {
 		Hero cap = new Hero("Captain America");
 		Hero ironMan = new Hero("Iron Man");
 		Hero thor = new Hero("Thor");
-		cap.printValues();
-		print("");
-		thor.printValues();
-		print("");
-		ironMan.printValues();
+		for(int i = 0; i < 10; i++) {
+			ironMan.printValues();
+			System.out.println(ironMan.isKoed());
+			ironMan.addClick();
+			ironMan.updateHeroValues();
+			print("");
+		}
 
 	}
 
