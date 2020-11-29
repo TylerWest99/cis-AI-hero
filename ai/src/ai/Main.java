@@ -28,10 +28,11 @@ public class Main {
 		Hero ironMan = new Hero("Iron Man");
 		Hero thor = new Hero("Thor");
 		
-		List<String> moves = Movement.getAllMoves("C11", 2, t, ironMan);
+		List<String> moves = Movement.getAllMoves("H1", 100, t, cap);
 		for(int i = 0; i < moves.size(); i++) {
 			print(moves.get(i));
 		}
+		print(moves.size());
 	}
 
 }

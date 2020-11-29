@@ -224,7 +224,7 @@ public class Movement {
 	
 	//WORKING ON THIS FOR WATER SHOULD MAYBE WORK BUT TEST IT
 	//takes in a list of moves and gets all around each of them
-	public static List<String> getMovesFromList(List<String> list, Board t, Hero h) {
+	public static List<String> getMovesFromList(List<String> list, Board t, Hero h, boolean startedInWater) {
 		List<String> moves = new ArrayList<String>();
 		List<String> temp = new ArrayList<String>();
 		int x;
@@ -234,16 +234,15 @@ public class Movement {
 		boolean waterSpot;
 		
 		for(int i = 0; i< list.size(); i++) {
+			
 			s = list.get(i);
-			if(isInWater(s)) {
-				waterSpot = true;
-			}else {
-				waterSpot = false;
-			}
+			 waterSpot = isInWater(s);
+			
 			x = getX(s);
 			y = getY(s);
 			
-
+			//if name is not captain america or if started in water do nothing different 
+			if(!h.getName().equalsIgnoreCase("Captain America") || startedInWater) {
 				temp = bloom(y,x,t);
 				for(int k = 0; k < temp.size(); k++) {
 					v = temp.get(k);
@@ -251,7 +250,19 @@ public class Movement {
 						moves.add(v);
 					}
 				}
-			
+			}
+			//if captain water stops blooming
+			else if(h.getName().equalsIgnoreCase("Captain America")) {
+				if(!waterSpot) {
+					temp = bloom(y,x,t);
+					for(int k = 0; k < temp.size(); k++) {
+						v = temp.get(k);
+						if(!isInList(moves, v)) {
+							moves.add(v);
+						}
+					}
+				}
+			}
 		}
 		return moves;
 	}
@@ -261,15 +272,29 @@ public class Movement {
 		List<String> allMoves = new ArrayList<String>();
 		int x = getX(loc);
 		int y = getY(loc);
+		boolean startedInWater = isInWater(loc);
+		List<String> firstMoves = bloom(y,x,t);
+		if(startedInWater) {
+			dist = dist / 2;
+		}
 		allMoves = bloom(y, x, t);
 		dist = dist -1;
 		
 		for(int i = 0; i < dist; i++) {
-			allMoves = getMovesFromList(allMoves, t, h);
+			allMoves = getMovesFromList(allMoves, t, h, startedInWater);
 		}
+		//adds start point if not in 
 		if(!isInList(allMoves, loc)) {
 			allMoves.add(loc);
 		}
+		//adds first bloom if not in 
+		for(int j = 0; j < firstMoves.size(); j++) {
+			String s = firstMoves.get(j);
+			if(!isInList(allMoves, s)) {
+				allMoves.add(s);
+			}
+		}
+		
 		return allMoves;
 	}
 }
