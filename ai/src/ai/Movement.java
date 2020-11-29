@@ -274,7 +274,7 @@ public class Movement {
 		int y = getY(loc);
 		boolean startedInWater = isInWater(loc);
 		List<String> firstMoves = bloom(y,x,t);
-		if(startedInWater) {
+		if(startedInWater && h.getName().equalsIgnoreCase("Captain America")) {
 			dist = dist / 2;
 		}
 		allMoves = bloom(y, x, t);
