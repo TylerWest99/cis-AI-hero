@@ -8,9 +8,38 @@ public class Movement {
 			"G9", "H10", "H7", "H6", "H5", "H4", "H3", "I3", "I4", "I5", "I7", "I10", "I11", "J14", "J13", "J12", "J10", "J9", "J8", "J3", "J2", "J1", "K1",
 			"K14", "L1", "L14", "L15"));
 
+	//returns if a location is water
 	public static boolean isInWater(String loc) {
 		for(int i = 0; i < waterSpots.size(); i++) {
 			if(loc.equals(waterSpots.get(i))){
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	//returns true if enemy is within a bloom
+	public static boolean isNextToEnemy(Hero h, Hero e, Board t) {
+		String loc = h.getLoc();
+		String enemyLoc = e.getLoc();
+		
+		int x = getX(loc);
+		int y = getY(loc);
+		
+		List<String> neighbors = bloom(y,x,t);
+		
+		for(int i = 0; i < neighbors.size(); i++) {
+			if(neighbors.get(i).equalsIgnoreCase(enemyLoc)) {
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	//is in list function sees if a string is in a list or not
+	public static boolean isInList(List<String> list, String s) {
+		for(int i = 0; i < list.size(); i++) {
+			if(list.get(i).equals(s)) {
 				return true;
 			}
 		}
@@ -178,16 +207,6 @@ public class Movement {
 		return rowInt;
 	}
 	
-	//is in list function sees if a string is in a list or not
-	public static boolean isInList(List<String> list, String s) {
-		for(int i = 0; i < list.size(); i++) {
-			if(list.get(i).equals(s)) {
-				return true;
-			}
-		}
-		return false;
-	}
-	
 	//returns list of moves within 1 square range
 	//basically a bloom out in dfs but only one of them
 	//PUT IN Y,X format row = y col = x
@@ -222,7 +241,7 @@ public class Movement {
 		return moves;
 	}
 	
-	//WORKING ON THIS FOR WATER SHOULD MAYBE WORK BUT TEST IT
+	//WORKING ON THIS FOR STOPPING NEAR ENEMY 
 	//takes in a list of moves and gets all around each of them
 	public static List<String> getMovesFromList(List<String> list, Board t, Hero h, boolean startedInWater) {
 		List<String> moves = new ArrayList<String>();
