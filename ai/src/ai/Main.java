@@ -1,4 +1,5 @@
 package ai;
+import java.util.*;
 
 public class Main {
 	
@@ -11,18 +12,26 @@ public class Main {
 		System.out.println(s);
 	}
 
-	public static void main(String[] args) {
+	public static void heroSetup() {
+		Board t = new Board();
+		t.createMap();
 		Hero cap = new Hero("Captain America");
 		Hero ironMan = new Hero("Iron Man");
 		Hero thor = new Hero("Thor");
-		for(int i = 0; i < 10; i++) {
-			ironMan.printValues();
-			System.out.println(ironMan.isKoed());
-			ironMan.addClick();
-			ironMan.updateHeroValues();
-			print("");
+	}
+	
+	public static void main(String[] args) {
+		//initialization stuff
+		Board t = new Board();
+		t.createMap();
+		Hero cap = new Hero("Captain America");
+		Hero ironMan = new Hero("Iron Man");
+		Hero thor = new Hero("Thor");
+		
+		List<String> moves = Movement.getAllMoves("C11", 2, t, ironMan);
+		for(int i = 0; i < moves.size(); i++) {
+			print(moves.get(i));
 		}
-
 	}
 
 }

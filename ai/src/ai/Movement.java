@@ -18,7 +18,7 @@ public class Movement {
 	}
 	
 	//Goes east
-	static String goE(int startRow, int startCol, Board t){
+	public static String goE(int startRow, int startCol, Board t){
 		int tmpId = t.boards[startRow][startCol].e;
 		int tmpRow = tmpId/16;
 		int tmpCol = tmpId%16;
@@ -30,7 +30,7 @@ public class Movement {
 	}
 			
 	//Goes west
-	static String goW(int startRow, int startCol, Board t){
+	public static String goW(int startRow, int startCol, Board t){
 		int tmpId = t.boards[startRow][startCol].w;
 		int tmpRow = tmpId/16;
 		int tmpCol = tmpId%16;
@@ -42,7 +42,7 @@ public class Movement {
 	}
 			
 	//Goes north
-	static String goN(int startRow, int startCol, Board t){
+	public static String goN(int startRow, int startCol, Board t){
 		int tmpId = t.boards[startRow][startCol].n;
 		int tmpRow = tmpId/16;
 		int tmpCol = tmpId%16;
@@ -54,7 +54,7 @@ public class Movement {
 	}
 			
 	//Goes south
-	static String goS(int startRow, int startCol, Board t){
+	public static String goS(int startRow, int startCol, Board t){
 		int tmpId = t.boards[startRow][startCol].s;
 		int tmpRow = tmpId/16;
 		int tmpCol = tmpId%16;
@@ -66,7 +66,7 @@ public class Movement {
 	}
 			
 	//Goes north east
-	static String goNE(int startRow, int startCol, Board t){
+	public static String goNE(int startRow, int startCol, Board t){
 		int tmpId = t.boards[startRow][startCol].ne;
 		int tmpRow = tmpId/16;
 		int tmpCol = tmpId%16;
@@ -78,7 +78,7 @@ public class Movement {
 	}
 			
 	//Goes south east
-	static String goSE(int startRow, int startCol, Board t){
+	public static String goSE(int startRow, int startCol, Board t){
 		int tmpId = t.boards[startRow][startCol].se;
 		int tmpRow = tmpId/16;
 		int tmpCol = tmpId%16;
@@ -90,7 +90,7 @@ public class Movement {
 	}
 			
 	//Goes south west
-	static String goSW(int startRow, int startCol, Board t){
+	public static String goSW(int startRow, int startCol, Board t){
 		int tmpId = t.boards[startRow][startCol].sw;
 		int tmpRow = tmpId/16;
 		int tmpCol = tmpId%16;
@@ -102,7 +102,7 @@ public class Movement {
 	}
 			
 	//Goes north west
-	static String goNW(int startRow, int startCol, Board t){
+	public static String goNW(int startRow, int startCol, Board t){
 		int tmpId = t.boards[startRow][startCol].nw;
 		int tmpRow = tmpId/16;
 		int tmpCol = tmpId%16;
@@ -190,6 +190,7 @@ public class Movement {
 	
 	//returns list of moves within 1 square range
 	//basically a bloom out in dfs but only one of them
+	//PUT IN Y,X format row = y col = x
 	public static List<String> bloom(int row, int col, Board t) {
 		List<String> moves = new ArrayList<String>();
 		List<String> directions = new ArrayList<String>();
@@ -221,31 +222,42 @@ public class Movement {
 		return moves;
 	}
 	
+	//WORKING ON THIS FOR WATER SHOULD MAYBE WORK BUT TEST IT
 	//takes in a list of moves and gets all around each of them
-	public static List<String> getMovesFromList(List<String> list, Board t) {
+	public static List<String> getMovesFromList(List<String> list, Board t, Hero h) {
 		List<String> moves = new ArrayList<String>();
 		List<String> temp = new ArrayList<String>();
 		int x;
 		int y;
 		String s;
 		String v;
+		boolean waterSpot;
+		
 		for(int i = 0; i< list.size(); i++) {
 			s = list.get(i);
+			if(isInWater(s)) {
+				waterSpot = true;
+			}else {
+				waterSpot = false;
+			}
 			x = getX(s);
 			y = getY(s);
-			temp = bloom(y,x,t);
-			for(int k = 0; k < temp.size(); k++) {
-				v = temp.get(k);
-				if(!isInList(moves, v)) {
-					moves.add(v);
+			
+
+				temp = bloom(y,x,t);
+				for(int k = 0; k < temp.size(); k++) {
+					v = temp.get(k);
+					if(!isInList(moves, v)) {
+						moves.add(v);
+					}
 				}
-			}
+			
 		}
 		return moves;
 	}
 	//gets all the moves in a set distance using a loc string ex A1 and a distance number like 8
 	//eventually goal is to remove dist and use hero class to access move dist
-	public static List<String> getAllMoves (String loc, int dist, Board t){
+	public static List<String> getAllMoves (String loc, int dist, Board t, Hero h){
 		List<String> allMoves = new ArrayList<String>();
 		int x = getX(loc);
 		int y = getY(loc);
@@ -253,7 +265,7 @@ public class Movement {
 		dist = dist -1;
 		
 		for(int i = 0; i < dist; i++) {
-			allMoves = getMovesFromList(allMoves, t);
+			allMoves = getMovesFromList(allMoves, t, h);
 		}
 		if(!isInList(allMoves, loc)) {
 			allMoves.add(loc);

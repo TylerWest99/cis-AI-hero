@@ -2,6 +2,7 @@ package ai;
 
 public class Hero {
 	String heroName;
+	String loc; 
 	int click;
 	int move;
 	int attack;
@@ -13,6 +14,7 @@ public class Hero {
 	//hero constructor and adds starting values
 	public Hero(String name) {
 		this.heroName = name;
+		this.loc = "Not on board!";
 		this.setStartValues();
 	}
 	
@@ -21,6 +23,13 @@ public class Hero {
 		this.click = this.click + 1;
 	}
 	
+	//SETTERS
+	//sets a hero location
+	public void setLoc(String loc) {
+		this.loc = loc;
+	}
+	
+	//GETTERS!
 	//returns the click of hero
 	public int getClick() {
 		return this.click;
@@ -29,6 +38,21 @@ public class Hero {
 	//gets the heros movement
 	public int getMove() {
 		return this.move;
+	}
+	
+	//gets the heros name
+	public String getName() {
+		return this.heroName;
+	}
+	
+	//gets the hero range
+	public int getRange() {
+		return this.range;
+	}
+	
+	//gets location
+	public String getLoc() {
+		return this.loc;
 	}
 	
 	//returns true if hero is koed false if still alive
