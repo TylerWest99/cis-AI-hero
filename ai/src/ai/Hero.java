@@ -3,24 +3,32 @@ package ai;
 public class Hero {
 	String heroName;
 	String loc; 
+	boolean isEnemy;
 	int click;
 	int move;
 	int attack;
 	int defense;
 	int damage;
 	int range; 
+	int actionTokens;
 	boolean isKo;
 	
 	//hero constructor and adds starting values
-	public Hero(String name) {
+	public Hero(String name, Boolean isEnemy) {
 		this.heroName = name;
 		this.loc = "Not on board!";
+		this.isEnemy = isEnemy;
 		this.setStartValues();
 	}
 	
 	//adds one to the click 
 	public void addClick() {
 		this.click = this.click + 1;
+	}
+	
+	//adds an actionToken
+	public void addActionToken() {
+		this.actionTokens++;
 	}
 	
 	//SETTERS
@@ -55,6 +63,11 @@ public class Hero {
 		return this.loc;
 	}
 	
+	//gets action tokens
+	public int getActionTokens() {
+		return this.actionTokens;
+	}
+	
 	//returns true if hero is koed false if still alive
 	public boolean isKoed() {
 		if(isKo) {
@@ -75,6 +88,7 @@ public class Hero {
 			this.defense = 17;
 			this.damage = 3;
 			this.range = 5;
+			this.actionTokens = 0;
 			this.isKo = false;
 		}
 		//sets start value for Thor 
@@ -85,6 +99,7 @@ public class Hero {
 			this.defense = 18;
 			this.damage = 4;
 			this.range = 6;
+			this.actionTokens = 0;
 			this.isKo = false;
 		}
 		//sets start value for Iron Man 
@@ -95,6 +110,7 @@ public class Hero {
 			this.defense = 18;
 			this.damage = 4;
 			this.range = 7;		
+			this.actionTokens = 0;
 			this.isKo = false;
 		}
 	}

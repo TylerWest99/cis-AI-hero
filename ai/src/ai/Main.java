@@ -11,28 +11,25 @@ public class Main {
 	public static void print(int s) {
 		System.out.println(s);
 	}
-
-	public static void heroSetup() {
-		Board t = new Board();
-		t.createMap();
-		Hero cap = new Hero("Captain America");
-		Hero ironMan = new Hero("Iron Man");
-		Hero thor = new Hero("Thor");
-	}
 	
 	public static void main(String[] args) {
 		//initialization stuff
 		Board t = new Board();
 		t.createMap();
-		Hero cap = new Hero("Captain America");
-		Hero ironMan = new Hero("Iron Man");
-		Hero thor = new Hero("Thor");
+		Game g = new Game();
 		
-		List<String> moves = Movement.getAllMoves("H1", 100, t, cap);
-		for(int i = 0; i < moves.size(); i++) {
+		g.setLocs(g.cap, g.ironMan, g.thor, "I1", "A3", "A4");
+		//g.setLocs(g.enemyCap, g.enemyIronMan, g.enemyThor, "B16", "C1", "C3");
+		
+		List<Hero> enemies = g.getAllEnemies();
+		List<String> moves = Movement.getAllMoves(g.cap, t, enemies);
+		
+		for( int i = 0; i < moves.size(); i++) {
 			print(moves.get(i));
 		}
 		print(moves.size());
-	}
+		
+		
 
+	}
 }
