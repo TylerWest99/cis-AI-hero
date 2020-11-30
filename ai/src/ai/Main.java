@@ -18,17 +18,14 @@ public class Main {
 		t.createMap();
 		Game g = new Game();
 		
-		g.setLocs(g.cap, g.ironMan, g.thor, "A1", "A3", "A4");
-		g.setLocs(g.enemyCap, g.enemyIronMan, g.enemyThor, "A2", "B2", "B1");
+		//sets both team locations
+		g.setLocs(g.cap, g.ironMan, g.thor, "A1", "E16", "E16");
+		g.setLocs(g.enemyCap, g.enemyIronMan, g.enemyThor, "A3", "B5", "P16");
 		
-		List<Hero> enemies = g.getAllEnemies();
-		List<String> moves = Movement.getAllMoves(g.cap, t, enemies);
-		List<String> attacks = Movement.getAttacks(g.cap, enemies, t);
-		
-		for(int i = 0; i < attacks.size(); i++) {
-			print(attacks.get(i));
-		}
-		print(attacks.size());
+		//gets team one moves
+		List<String> capMoves = g.getCapMoves();
+		List<String> ironManMoves = g.getIronMoves();
+		List<String> thorMoves = g.getThorMoves();
 		
 		
 		

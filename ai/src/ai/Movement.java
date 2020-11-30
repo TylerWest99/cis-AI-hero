@@ -296,7 +296,7 @@ public class Movement {
 	}
 	//gets all the moves in a set distance using a loc string ex A1 and a distance number like 8
 	//eventually goal is to remove dist and use hero class to access move dist
-	public static List<String> getAllMoves (Hero h, Board t, List<Hero> enemies){
+	public static List<String> getAllMoves (Hero h, List<Hero> enemies, Board t){
 		List<String> allMoves = new ArrayList<String>();
 		String loc = h.getLoc();
 		int dist = h.getMove();
