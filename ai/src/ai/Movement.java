@@ -366,7 +366,8 @@ public class Movement {
 		return s;
 	}
 	
-	//gets a lane in a direction
+	//helper methods that get a lane in a direction
+	//east lane
 	public static List<String> getEastLane(String loc, int range, Board t){
 		List<String> list = new ArrayList<String>();
 		int x = getX(loc);
@@ -374,6 +375,138 @@ public class Movement {
 		String s;
 		for(int i = 0; i < range; i++) {
 			s = goE(y,x,t);
+			if(!s.equals("None")) {
+				list.add(s);
+			}else {
+				i = range;
+			}
+			x = getX(s);
+			y = getY(s);
+		}
+		return list;
+	}
+	//west lane
+	public static List<String> getWestLane(String loc, int range, Board t){
+		List<String> list = new ArrayList<String>();
+		int x = getX(loc);
+		int y = getY(loc);
+		String s;
+		for(int i = 0; i < range; i++) {
+			s = goW(y,x,t);
+			if(!s.equals("None")) {
+				list.add(s);
+			}else {
+				i = range;
+			}
+			x = getX(s);
+			y = getY(s);
+		}
+		return list;
+	}
+	
+	//north lane
+	public static List<String> getNorthLane(String loc, int range, Board t){
+		List<String> list = new ArrayList<String>();
+		int x = getX(loc);
+		int y = getY(loc);
+		String s;
+		for(int i = 0; i < range; i++) {
+			s = goN(y,x,t);
+			if(!s.equals("None")) {
+				list.add(s);
+			}else {
+				i = range;
+			}
+			x = getX(s);
+			y = getY(s);
+		}
+		return list;
+	}
+	
+	//South lane
+	public static List<String> getSouthLane(String loc, int range, Board t){
+		List<String> list = new ArrayList<String>();
+		int x = getX(loc);
+		int y = getY(loc);
+		String s;
+		for(int i = 0; i < range; i++) {
+			s = goS(y,x,t);
+			if(!s.equals("None")) {
+				list.add(s);
+			}else {
+				i = range;
+			}
+			x = getX(s);
+			y = getY(s);
+		}
+		return list;
+	}
+	
+	//SouthEast lane
+	public static List<String> getSouthEastLane(String loc, int range, Board t){
+		List<String> list = new ArrayList<String>();
+		int x = getX(loc);
+		int y = getY(loc);
+		String s;
+		for(int i = 0; i < range; i++) {
+			s = goSE(y,x,t);
+			if(!s.equals("None")) {
+				list.add(s);
+			}else {
+				i = range;
+			}
+			x = getX(s);
+			y = getY(s);
+		}
+		return list;
+	}
+	
+	//SouthWest lane
+	public static List<String> getSouthWestLane(String loc, int range, Board t){
+		List<String> list = new ArrayList<String>();
+		int x = getX(loc);
+		int y = getY(loc);
+		String s;
+		for(int i = 0; i < range; i++) {
+			s = goSW(y,x,t);
+			if(!s.equals("None")) {
+				list.add(s);
+			}else {
+				i = range;
+			}
+			x = getX(s);
+			y = getY(s);
+		}
+		return list;
+	}
+	
+	//North East lane
+	public static List<String> getNorthEastLane(String loc, int range, Board t){
+		List<String> list = new ArrayList<String>();
+		int x = getX(loc);
+		int y = getY(loc);
+		String s;
+		for(int i = 0; i < range; i++) {
+			s = goNE(y,x,t);
+			if(!s.equals("None")) {
+				list.add(s);
+			}else {
+				i = range;
+			}
+			x = getX(s);
+			y = getY(s);
+		}
+		return list;
+	}
+	
+	//North west lane
+	public static List<String> getNorthWestLane(String loc, int range, Board t){
+		List<String> list = new ArrayList<String>();
+		int x = getX(loc);
+		int y = getY(loc);
+		String s;
+		for(int i = 0; i < range; i++) {
+			s = goNW(y,x,t);
 			if(!s.equals("None")) {
 				list.add(s);
 			}else {
