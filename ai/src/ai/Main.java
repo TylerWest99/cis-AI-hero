@@ -19,12 +19,11 @@ public class Main {
 		Game g = new Game();
 		
 		g.setLocs(g.cap, g.ironMan, g.thor, "A1", "A3", "A4");
-		g.setLocs(g.enemyCap, g.enemyIronMan, g.enemyThor, "I7", "I9", "C1");
+		g.setLocs(g.enemyCap, g.enemyIronMan, g.enemyThor, "A2", "B2", "B1");
 		
 		List<Hero> enemies = g.getAllEnemies();
 		List<String> moves = Movement.getAllMoves(g.cap, t, enemies);
-		List<String> empty = new ArrayList<String>();
-		List<String> attacks = Movement.getAllPossibleAttacks("A16", 3, t);
+		List<String> attacks = Movement.getAttacks(g.cap, enemies, t);
 		
 		for(int i = 0; i < attacks.size(); i++) {
 			print(attacks.get(i));

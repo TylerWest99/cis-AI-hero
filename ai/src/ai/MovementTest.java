@@ -38,7 +38,7 @@ public class MovementTest {
 	//tests getting the column from a loc
 	@Test
 	void testGetCol() {
-		assertEquals(Movement.getY("D14"), 13);
+		assertEquals(Movement.getY("C1"), 0);
 	}
 	
 	//tests getting the column from a loc
@@ -50,7 +50,7 @@ public class MovementTest {
 	//tests getting the row from a loc
 	@Test
 	void testGetRow() {
-		assertEquals(Movement.getX("D14"), 3);
+		assertEquals(Movement.getX("C1"), 2);
 	}
 	
 	//tests getting the row from a loc
