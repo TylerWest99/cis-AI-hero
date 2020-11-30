@@ -518,5 +518,44 @@ public class Movement {
 		return list;
 	}
 	
+	//returns a list of all spots a hero in a location could possibly attack
+	public static List<String> getAllPossibleAttacks(String loc, int range, Board t) {
+		List<String> allPossibleAttacks = new ArrayList<String>();
+		List<String> west = getWestLane(loc,range,t);
+		List<String> east = getEastLane(loc,range,t);
+		List<String> south = getSouthLane(loc,range,t);
+		List<String> north = getNorthLane(loc,range,t);
+		List<String> northWest = getNorthWestLane(loc,range,t);
+		List<String> southWest = getSouthWestLane(loc,range,t);
+		List<String> northEast= getNorthEastLane(loc,range,t);
+		List<String> southEast = getSouthEastLane(loc,range,t);
+		
+		for(int i = 0; i < west.size(); i++) {
+			allPossibleAttacks.add(west.get(i));
+		}
+		for(int i = 0; i < east.size(); i++) {
+			allPossibleAttacks.add(east.get(i));
+		}
+		for(int i = 0; i < south.size(); i++) {
+			allPossibleAttacks.add(south.get(i));
+		}
+		for(int i = 0; i < north.size(); i++) {
+			allPossibleAttacks.add(north.get(i));
+		}
+		for(int i = 0; i < southWest.size(); i++) {
+			allPossibleAttacks.add(southWest.get(i));
+		}
+		for(int i = 0; i < northWest.size(); i++) {
+			allPossibleAttacks.add(northWest.get(i));
+		}
+		for(int i = 0; i < southEast.size(); i++) {
+			allPossibleAttacks.add(southEast.get(i));
+		}
+		for(int i = 0; i < northEast.size(); i++) {
+			allPossibleAttacks.add(northEast.get(i));
+		}
+		return allPossibleAttacks;
+	}
+	
 	
 }

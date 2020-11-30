@@ -24,12 +24,12 @@ public class Main {
 		List<Hero> enemies = g.getAllEnemies();
 		List<String> moves = Movement.getAllMoves(g.cap, t, enemies);
 		List<String> empty = new ArrayList<String>();
-		List<String> attackLane = Movement.getEastLane("A1", 10, t);
+		List<String> attacks = Movement.getAllPossibleAttacks("A16", 3, t);
 		
-		for(int i = 0; i < attackLane.size(); i++) {
-			print(attackLane.get(i));
+		for(int i = 0; i < attacks.size(); i++) {
+			print(attacks.get(i));
 		}
-		print(attackLane.size());
+		print(attacks.size());
 		
 		
 		
