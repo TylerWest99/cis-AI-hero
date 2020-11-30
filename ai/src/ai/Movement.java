@@ -20,11 +20,11 @@ public class Movement {
 	
 	//returns true if enemy is within a bloom
 	//used later to kill bloom if in range of a enemy
-	public static boolean isNextToEnemy(Hero h, List<Hero> enemies, Board t) {
+	public static boolean isNextToEnemy(String h, List<Hero> enemies, Board t) {
 		//gets hero location
-		String loc = h.getLoc();
-		int x = getX(loc);
-		int y = getY(loc);
+		//String loc = h.getLoc();
+		int x = getX(h);
+		int y = getY(h);
 		//gets surrounds of a hero
 		List<String> surrounds = bloom(y,x,t);
 		for(int i = 0; i < surrounds.size(); i++) {
@@ -266,8 +266,8 @@ public class Movement {
 			y = getY(s);
 			
 			//if next to enemy cant keep moving
-			if(isNextToEnemy(h, enemies, t)) {
-				//do nothing
+			if(isNextToEnemy(s, enemies, t)) {
+				//does nothing
 			}
 			//if name is not captain america or if started in water do nothing different 
 			else if(!h.getName().equalsIgnoreCase("Captain America") || startedInWater) {
