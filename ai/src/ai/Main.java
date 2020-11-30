@@ -23,11 +23,15 @@ public class Main {
 		
 		List<Hero> enemies = g.getAllEnemies();
 		List<String> moves = Movement.getAllMoves(g.cap, t, enemies);
+		List<String> empty = new ArrayList<String>();
+		List<String> attackLane = Movement.getEastLane("A1", 10, t);
 		
-		for( int i = 0; i < moves.size(); i++) {
-			print(moves.get(i));
+		for(int i = 0; i < attackLane.size(); i++) {
+			print(attackLane.get(i));
 		}
-		print(moves.size());
+		print(attackLane.size());
+		
+		
 		
 		
 

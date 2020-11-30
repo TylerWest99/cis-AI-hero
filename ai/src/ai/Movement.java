@@ -215,19 +215,19 @@ public class Movement {
 	//returns list of moves within 1 square range
 	//basically a bloom out in dfs but only one of them
 	//PUT IN Y,X format row = y col = x
-	public static List<String> bloom(int row, int col, Board t) {
+	public static List<String> bloom(int y, int x, Board t) {
 		List<String> moves = new ArrayList<String>();
 		List<String> directions = new ArrayList<String>();
 		
 		//each pos id around a square in string format
-		String N = goN(row,col, t);
-		String S = goS(row,col,t);
-		String E = goE(row,col,t);
-		String W = goW(row,col,t);
-		String NW = goNW(row,col,t);
-		String NE = goNE(row,col,t);
-		String SW = goSW(row,col,t);
-		String SE = goSE(row,col,t);
+		String N = goN(y,x, t);
+		String S = goS(y,x,t);
+		String E = goE(y,x,t);
+		String W = goW(y,x,t);
+		String NW = goNW(y,x,t);
+		String NE = goNE(y,x,t);
+		String SW = goSW(y,x,t);
+		String SE = goSE(y,x,t);
 		
 		directions.add(N);
 		directions.add(S);
@@ -266,7 +266,6 @@ public class Movement {
 			y = getY(s);
 			
 			//if next to enemy cant keep moving
-			//Still have to do something for not allowing move to enemy position
 			if(isNextToEnemy(h, enemies, t)) {
 				//do nothing
 			}
@@ -332,4 +331,59 @@ public class Movement {
 		
 		return allMoves;
 	}
+	
+	//helper methods to move one spot only one direction for eventual attacking
+	public static String getWestOne(int y, int x, Board t) {
+		String s = goW(y,x,t);
+		return s;
+	}
+	public static String getEastOne(int y, int x, Board t) {
+		String s = goE(y,x,t);
+		return s;
+	}
+	public static String getSouthOne(int y, int x, Board t) {
+		String s = goS(y,x,t);
+		return s;
+	}
+	public static String getNorthOne(int y, int x, Board t) {
+		String s = goN(y,x,t);
+		return s;
+	}
+	public static String getSouthWestOne(int y, int x, Board t) {
+		String s = goSW(y,x,t);
+		return s;
+	}
+	public static String getNorthWestOne(int y, int x, Board t) {
+		String s = goNW(y,x,t);
+		return s;
+	}
+	public static String getSouthEastOne(int y, int x, Board t) {
+		String s = goSE(y,x,t);
+		return s;
+	}
+	public static String getNorthEastOne(int y, int x, Board t) {
+		String s = goNE(y,x,t);
+		return s;
+	}
+	
+	//gets a lane in a direction
+	public static List<String> getEastLane(String loc, int range, Board t){
+		List<String> list = new ArrayList<String>();
+		int x = getX(loc);
+		int y = getY(loc);
+		String s;
+		for(int i = 0; i < range; i++) {
+			s = goE(y,x,t);
+			if(!s.equals("None")) {
+				list.add(s);
+			}else {
+				i = range;
+			}
+			x = getX(s);
+			y = getY(s);
+		}
+		return list;
+	}
+	
+	
 }
