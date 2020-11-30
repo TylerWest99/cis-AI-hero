@@ -58,4 +58,17 @@ public class MovementTest {
 	void testGetRow2() {
 		assertEquals(Movement.getX("L7"), 11);
 	}
+	
+	//tests the is next to enemy function
+	@Test
+	void testIsNextToEnemy() {
+		Hero cap = new Hero("Captain America", false);
+		Hero enemyCap = new Hero("Captain America", true);
+		
+		cap.setLoc("A1");
+		enemyCap.setLoc("B1");
+		List<Hero> enemies = new ArrayList<Hero>();
+		enemies.add(enemyCap);
+		assertTrue(Movement.isNextToEnemy(cap, enemies, t));
+	}
 }

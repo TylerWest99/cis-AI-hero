@@ -19,18 +19,23 @@ public class Movement {
 	}
 	
 	//returns true if enemy is within a bloom
-	public static boolean isNextToEnemy(Hero h, Hero e, Board t) {
+	//used later to kill bloom if in range of a enemy
+	public static boolean isNextToEnemy(Hero h, List<Hero> enemies, Board t) {
+		//gets hero location
 		String loc = h.getLoc();
-		String enemyLoc = e.getLoc();
-		
 		int x = getX(loc);
 		int y = getY(loc);
-		
-		List<String> neighbors = bloom(y,x,t);
-		
-		for(int i = 0; i < neighbors.size(); i++) {
-			if(neighbors.get(i).equalsIgnoreCase(enemyLoc)) {
-				return true;
+		//gets surrounds of a hero
+		List<String> surrounds = bloom(y,x,t);
+		for(int i = 0; i < surrounds.size(); i++) {
+			//a surrounding spot of loc
+			String surroundSpot = surrounds.get(i);
+			for(int k = 0; k < enemies.size(); k++) {
+				//enemy location
+				String enemyLoc = enemies.get(k).getLoc();
+				if(surroundSpot.equalsIgnoreCase(enemyLoc)) {
+					return true;
+				}
 			}
 		}
 		return false;
@@ -243,10 +248,9 @@ public class Movement {
 	
 	//WORKING ON THIS FOR STOPPING NEAR ENEMY 
 	//takes in a list of moves and gets all around each of them
-	public static List<String> getMovesFromList(List<String> list, List<Hero> enemyHeros, Board t, Hero h, boolean startedInWater) {
+	public static List<String> getMovesFromList(List<String> list, List<Hero> enemies, Board t, Hero h, boolean startedInWater) {
 		List<String> moves = new ArrayList<String>();
 		List<String> temp = new ArrayList<String>();
-		List<String> enemyLocs = new ArrayList<String>();
 		int x;
 		int y;
 		String s;
@@ -254,19 +258,31 @@ public class Movement {
 		boolean waterSpot;
 		
 		for(int i = 0; i< list.size(); i++) {
-			for(int e = 0; e < enemyHeros.size(); e++) {
-				Hero enemy = enemyHeros.get(0);
-				Hero enemy2 = enemyHeros.get(1);
-				Hero enemy3 = enemyHeros.get(2);
-				s = list.get(i);
-			 	waterSpot = isInWater(s);
-			
-			 	x = getX(s);
-				y = getY(s);
-			
 
-				//if name is not captain america or if started in water do nothing different 
-				if(!h.getName().equalsIgnoreCase("Captain America") || startedInWater) {
+			s = list.get(i);
+		 	waterSpot = isInWater(s);
+			
+		 	x = getX(s);
+			y = getY(s);
+			
+			//if next to enemy cant keep moving
+			//Still have to do something for not allowing move to enemy position
+			if(isNextToEnemy(h, enemies, t)) {
+				//do nothing
+			}
+			//if name is not captain america or if started in water do nothing different 
+			else if(!h.getName().equalsIgnoreCase("Captain America") || startedInWater) {
+				temp = bloom(y,x,t);
+				for(int k = 0; k < temp.size(); k++) {
+					v = temp.get(k);
+					if(!isInList(moves, v)) {
+						moves.add(v);
+					}
+				}
+			}
+			//if captain is hero then water stops blooming
+			else if(h.getName().equalsIgnoreCase("Captain America")) {
+				if(!waterSpot) {
 						temp = bloom(y,x,t);
 						for(int k = 0; k < temp.size(); k++) {
 							v = temp.get(k);
@@ -274,18 +290,6 @@ public class Movement {
 								moves.add(v);
 							}
 						}
-				}
-				//if captain is hero then water stops blooming
-				else if(h.getName().equalsIgnoreCase("Captain America")) {
-					if(!waterSpot) {
-							temp = bloom(y,x,t);
-							for(int k = 0; k < temp.size(); k++) {
-								v = temp.get(k);
-								if(!isInList(moves, v)) {
-									moves.add(v);
-								}
-							}
-					}
 				}
 			}
 		}
@@ -320,6 +324,10 @@ public class Movement {
 			if(!isInList(allMoves, s)) {
 				allMoves.add(s);
 			}
+		}
+		for(int k = 0; k < enemies.size(); k++) {
+			String s = enemies.get(k).getLoc();
+			allMoves.remove(new String(s));
 		}
 		
 		return allMoves;
