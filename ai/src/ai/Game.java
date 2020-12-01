@@ -72,8 +72,9 @@ public class Game {
 
 		
 		//gets all moves for a hero used to get all moves for a single hero
-		private List<String> getAllMoves(List<String> moves, List<String> attacks){
+		private List<Move> getAllMoves(List<String> moves, List<String> attacks){
 			List<String> allMoves = new ArrayList<String>(); 
+			List<Move> allMoves2 = new ArrayList<Move>(); 
 			for(int i = 0; i < moves.size(); i++) {
 				allMoves.add("move: " + moves.get(i));
 			}
@@ -81,29 +82,35 @@ public class Game {
 				allMoves.add("attacks: " + attacks.get(i));
 			}
 			allMoves.add("Clear actions");
-			return allMoves;
+			for(int i = 0; i < allMoves.size(); i++) {
+				Move m = new Move(allMoves.get(i), 0);
+				allMoves2.add(m);
+			}
+			return allMoves2;
 		}
 		
 		//gets all moves for captain 
-		public List<String> getCapMoves(){
+		public List<Move> getCapMoves(){
 			List<String> capMoves = Movement.getAllMoves(cap, enemies, t);
 			List<String> capAttacks = Movement.getAttacks(cap, enemies, t);
 			return getAllMoves(capMoves, capAttacks);
 		}
 		
 		//gets all moves for iron man 
-		public List<String> getIronMoves(){
+		public List<Move> getIronMoves(){
 			List<String> ironMoves = Movement.getAllMoves(ironMan, enemies, t);
 			List<String> ironAttacks = Movement.getAttacks(ironMan, enemies, t);
 			return getAllMoves(ironMoves, ironAttacks);
 		}
 		
 		//gets all moves for thor
-		public List<String> getThorMoves(){
+		public List<Move> getThorMoves(){
 			List<String> thorMoves = Movement.getAllMoves(thor, enemies, t);
 			List<String> thorAttacks = Movement.getAttacks(thor, enemies, t);
 			return getAllMoves(thorMoves, thorAttacks);
 		}
 		
 		//still gotta do a get all moves from enemies
-}
+}		
+		//More code 
+		//and add a way for game to know num action tokens and update click

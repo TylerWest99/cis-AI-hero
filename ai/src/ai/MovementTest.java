@@ -2,8 +2,6 @@ package ai;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-import java.util.Arrays;
-
 import junit.framework.*;
 
 import org.junit.jupiter.api.Test;
@@ -69,6 +67,6 @@ public class MovementTest {
 		enemyCap.setLoc("B1");
 		List<Hero> enemies = new ArrayList<Hero>();
 		enemies.add(enemyCap);
-		assertTrue(Movement.isNextToEnemy(cap, enemies, t));
+		assertTrue(Movement.isNextToEnemy(cap.getName(), enemies, t));
 	}
 }

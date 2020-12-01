@@ -592,9 +592,6 @@ public class Movement {
 				attacks.add(s);
 			}
 		}
-		
 		return attacks;
 	}
-	
-	
 }
