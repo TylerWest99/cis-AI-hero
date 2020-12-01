@@ -23,9 +23,14 @@ public class Main {
 		g.setLocs(g.enemyCap, g.enemyIronMan, g.enemyThor, "A3", "B5", "P16");
 		
 		//gets team one moves
-		List<String> capMoves = g.getCapMoves();
-		List<String> ironManMoves = g.getIronMoves();
-		List<String> thorMoves = g.getThorMoves();
+		List<Move> capMoves = g.getCapMoves();
+		List<Move> ironManMoves = g.getIronMoves();
+		List<Move> thorMoves = g.getThorMoves();
+		
+		for(int i = 0; i < thorMoves.size(); i++) {
+			print(thorMoves.get(i).getSpot());
+			print(thorMoves.get(i).getScore());
+		}
 		
 		
 		
