@@ -542,7 +542,7 @@ public class Movement {
 		return list;
 	}
 	
-	//returns a list of all spots a hero in a location could possibly attack
+	//returns a list of all spots a hero in a location can attack
 	public static List<String> getAttacks(Hero h, List<Hero> enemies, Board t) {
 		List<String> allPossibleAttacks = new ArrayList<String>();
 		List<String> attacks = new ArrayList<String>();
@@ -591,6 +591,57 @@ public class Movement {
 			if(s.equalsIgnoreCase(eLoc1) || s.equalsIgnoreCase(eLoc2) || s.equalsIgnoreCase(eLoc3)) {
 				attacks.add(s);
 			}
+		}
+		return attacks;
+	}
+	
+	//returns a list of EVERY SPOT a hero in a location could possibly attack
+	public static List<String> getAllPossibleAttacks(Hero h, Board t) {
+		List<String> allPossibleAttacks = new ArrayList<String>();
+		List<String> attacks = new ArrayList<String>();
+		String loc = h.getLoc();
+		int range = h.getRange();
+		
+		String eLoc1 = "";
+		String eLoc2 = "";
+		String eLoc3 = "";
+		List<String> west = getWestLane(loc,range,t, eLoc1, eLoc2, eLoc3);
+		List<String> east = getEastLane(loc,range,t, eLoc1, eLoc2, eLoc3);
+		List<String> south = getSouthLane(loc,range,t, eLoc1, eLoc2, eLoc3);
+		List<String> north = getNorthLane(loc,range,t, eLoc1, eLoc2, eLoc3);
+		List<String> northWest = getNorthWestLane(loc,range,t, eLoc1, eLoc2, eLoc3);
+		List<String> southWest = getSouthWestLane(loc,range,t, eLoc1, eLoc2, eLoc3);
+		List<String> northEast= getNorthEastLane(loc,range,t, eLoc1, eLoc2, eLoc3);
+		List<String> southEast = getSouthEastLane(loc,range,t, eLoc1, eLoc2, eLoc3);
+		
+		//combines all lanes into all possible attacks
+		for(int i = 0; i < west.size(); i++) {
+			allPossibleAttacks.add(west.get(i));
+		}
+		for(int i = 0; i < east.size(); i++) {
+			allPossibleAttacks.add(east.get(i));
+		}
+		for(int i = 0; i < south.size(); i++) {
+			allPossibleAttacks.add(south.get(i));
+		}
+		for(int i = 0; i < north.size(); i++) {
+			allPossibleAttacks.add(north.get(i));
+		}
+		for(int i = 0; i < southWest.size(); i++) {
+			allPossibleAttacks.add(southWest.get(i));
+		}
+		for(int i = 0; i < northWest.size(); i++) {
+			allPossibleAttacks.add(northWest.get(i));
+		}
+		for(int i = 0; i < southEast.size(); i++) {
+			allPossibleAttacks.add(southEast.get(i));
+		}
+		for(int i = 0; i < northEast.size(); i++) {
+			allPossibleAttacks.add(northEast.get(i));
+		}
+		for(int k = 0; k < allPossibleAttacks.size(); k++){
+			String s = allPossibleAttacks.get(k);
+				attacks.add(s);
 		}
 		return attacks;
 	}

@@ -5,6 +5,7 @@ public class Hero {
 	String loc; 
 	boolean isEnemy;
 	int click;
+	int totalClicks;
 	int move;
 	int attack;
 	int defense;
@@ -68,6 +69,10 @@ public class Hero {
 		return this.actionTokens;
 	}
 	
+	public boolean getIsEnemy() {
+		return this.isEnemy;
+	}
+	
 	//returns true if hero is koed false if still alive
 	public boolean isKoed() {
 		if(isKo) {
@@ -90,6 +95,7 @@ public class Hero {
 			this.range = 5;
 			this.actionTokens = 0;
 			this.isKo = false;
+			this.totalClicks = 6;
 		}
 		//sets start value for Thor 
 		if(heroName.equalsIgnoreCase("Thor")) {
@@ -101,6 +107,7 @@ public class Hero {
 			this.range = 6;
 			this.actionTokens = 0;
 			this.isKo = false;
+			this.totalClicks = 9;
 		}
 		//sets start value for Iron Man 
 		if(heroName.equalsIgnoreCase("Iron Man")) {
@@ -112,6 +119,7 @@ public class Hero {
 			this.range = 7;		
 			this.actionTokens = 0;
 			this.isKo = false;
+			this.totalClicks = 7;
 		}
 	}
 	

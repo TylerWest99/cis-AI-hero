@@ -22,6 +22,7 @@ public class Game {
 			t.createMap();
 			heros = new ArrayList<Hero>();
 			enemies = new ArrayList<Hero>();
+			
 			cap = new Hero("Captain America", false);
 			ironMan = new Hero("Iron Man", false);
 			thor = new Hero("Thor", false);
@@ -35,6 +36,14 @@ public class Game {
 			enemies.add(enemyCap);
 			enemies.add(enemyIronMan);
 			enemies.add(enemyThor);
+		}
+		
+		public boolean isHero(Hero h) {
+			if(h.getIsEnemy()) {
+				return false;
+			}else {
+				return true;
+			}
 		}
 		
 		//sets locations for any of the two hero sets
@@ -69,7 +78,46 @@ public class Game {
 		public void setLocEnemyThor(String loc) {
 			enemyThor.setLoc(loc);
 		}
-
+		
+		//ways to add action tokens for each
+		public void capAddToken() {
+			cap.addActionToken();
+		}
+		public void ironAddToken() {
+			ironMan.addActionToken();
+		}
+		public void thorAddToken() {
+			thor.addActionToken();
+		}
+		public void EnemyCapAddToken() {
+			enemyCap.addActionToken();
+		}
+		public void enemyIronAddToken() {
+			enemyIronMan.addActionToken();
+		}
+		public void enemyThorAddToken() {
+			enemyThor.addActionToken();
+		}
+		
+		//ways to add click to each
+		public void capAddClick() {
+			cap.addClick();
+		}
+		public void ironAddClick() {
+			ironMan.addClick();
+		}
+		public void thorAddClick() {
+			thor.addClick();
+		}
+		public void EnemyCapAddClick() {
+			enemyCap.addClick();
+		}
+		public void enemyIronAddClick() {
+			enemyIronMan.addClick();
+		}
+		public void enemyThorAddClick() {
+			enemyThor.addClick();
+		}
 		
 		//gets all moves for a hero used to get all moves for a single hero
 		private List<Move> getAllMoves(List<String> moves, List<String> attacks){
@@ -79,7 +127,7 @@ public class Game {
 				allMoves.add("move: " + moves.get(i));
 			}
 			for(int i = 0; i < attacks.size(); i++) {
-				allMoves.add("attacks: " + attacks.get(i));
+				allMoves.add("attack: " + attacks.get(i));
 			}
 			allMoves.add("Clear actions");
 			for(int i = 0; i < allMoves.size(); i++) {
@@ -90,27 +138,166 @@ public class Game {
 		}
 		
 		//gets all moves for captain 
-		public List<Move> getCapMoves(){
+		private List<Move> getCapMoves(){
 			List<String> capMoves = Movement.getAllMoves(cap, enemies, t);
 			List<String> capAttacks = Movement.getAttacks(cap, enemies, t);
 			return getAllMoves(capMoves, capAttacks);
 		}
 		
 		//gets all moves for iron man 
-		public List<Move> getIronMoves(){
+		private List<Move> getIronMoves(){
 			List<String> ironMoves = Movement.getAllMoves(ironMan, enemies, t);
 			List<String> ironAttacks = Movement.getAttacks(ironMan, enemies, t);
 			return getAllMoves(ironMoves, ironAttacks);
 		}
 		
 		//gets all moves for thor
-		public List<Move> getThorMoves(){
+		private List<Move> getThorMoves(){
 			List<String> thorMoves = Movement.getAllMoves(thor, enemies, t);
 			List<String> thorAttacks = Movement.getAttacks(thor, enemies, t);
 			return getAllMoves(thorMoves, thorAttacks);
 		}
 		
-		//still gotta do a get all moves from enemies
-}		
-		//More code 
-		//and add a way for game to know num action tokens and update click
+		//gets enemy moves
+		//gets all moves for enemy captain
+		private List<Move> getEnemyCapMoves(){
+			List<String> capMoves = Movement.getAllMoves(enemyCap, enemies, t);
+			List<String> capAttacks = Movement.getAttacks(enemyCap, enemies, t);
+			return getAllMoves(capMoves, capAttacks);
+		}
+		
+		//gets all moves for enemy iron man 
+		public List<Move> getEnemyIronMoves(){
+			List<String> ironMoves = Movement.getAllMoves(enemyIronMan, enemies, t);
+			List<String> ironAttacks = Movement.getAttacks(enemyIronMan, enemies, t);
+			return getAllMoves(ironMoves, ironAttacks);
+		}
+		
+		//gets all moves for enemy thor
+		private List<Move> getEnemyThorMoves(){
+			List<String> thorMoves = Movement.getAllMoves(enemyThor, enemies, t);
+			List<String> thorAttacks = Movement.getAttacks(enemyThor, enemies, t);
+			return getAllMoves(thorMoves, thorAttacks);
+		}
+		
+		//gets moves for a hero
+		public List<Move> getMoves(Hero h) {
+			//makes moves to be ranked
+			List<Move> moves = new ArrayList<Move>();
+			
+			//if friendly set moves
+			if(h.getName().equalsIgnoreCase("Captain America") && !h.getIsEnemy()) {
+				moves = getCapMoves();
+			}
+			if(h.getName().equalsIgnoreCase("Iron Man") && !h.getIsEnemy()) {
+				moves = getIronMoves();
+			}
+			if(h.getName().equalsIgnoreCase("Thor") && !h.getIsEnemy()) {
+				moves = getThorMoves();
+			}
+			
+			//sets enemy moves
+			if(h.getName().equalsIgnoreCase("Captain America") && h.getIsEnemy()) {
+				moves = getEnemyCapMoves();
+			}
+			if(h.getName().equalsIgnoreCase("Iron Man") && h.getIsEnemy()) {
+				moves = getEnemyIronMoves();
+			}
+			if(h.getName().equalsIgnoreCase("Thor") && h.getIsEnemy()) {
+				moves = getEnemyThorMoves();
+			}
+			
+			return moves;
+		}
+		
+		public boolean isAnAttack(String s) {
+			if(s.length() >= 10 && s.length()!= 13){
+				return true;
+			}
+			else {
+				return false;
+			}
+		}
+		
+		public boolean isAMove(String s) {
+			if(s.length() < 10) {
+				return true;
+			}else {
+				return false;
+			}
+		}
+		
+		//important method that sees if this hero can be attacked by enemies
+		//will be useful for attacking if I can attack and they cannot and for running away
+		public List<String> inSightsOfEnemies(Hero h, Board t) {
+			List<Hero> allies = new ArrayList<Hero>();
+			List<Hero> foes = new ArrayList<Hero>();
+			List<String> allEnemyMoves = new ArrayList<String>();
+			//if enemy allies are enemies and foes are heros
+			if(h.getIsEnemy()) {
+				allies = enemies;
+				foes = heros;
+			//if hero allies are heros and foes are enemies
+			}else {
+				allies = heros;
+				foes = enemies;
+			}
+			//goes through each foe
+			for(int i = 0; i < foes.size(); i++) {
+				Hero foe = foes.get(i);
+				List<String> tempList = Movement.getAllPossibleAttacks(foe, t);
+				//makes a list of all possible attacks for that foe
+				for(int j = 0; j < tempList.size(); j++) {
+					//if not in the allEnemyMoves list adds it
+					if(!Movement.isInList(allEnemyMoves, tempList.get(j))) {
+						allEnemyMoves.add(tempList.get(j));
+					}
+				}
+			}
+			return allEnemyMoves;
+		}
+		
+		/*
+		public List<Move> rankMoves (Hero h) {
+			List<Move> allMoves = getMoves(h);
+			List<String> attackLocs = new ArrayList<String>();
+			List<String> moveLocs = new ArrayList<String>();
+			
+			//goes through every move and edits score variable to track how good a move is 
+			for(int i = 0; i < allMoves.size(); i++) {
+				String s = allMoves.get(i).getAction();
+				
+				//sets the clear actions score depending on how many action tokens a hero has 
+				if(s.equalsIgnoreCase("Clear actions") && h.getActionTokens() == 2) {
+					allMoves.get(i).setScore(1000);
+				}
+				if(s.equalsIgnoreCase("Clear actions") && h.getActionTokens() == 1) {
+					allMoves.get(i).setScore(10);
+				}
+				if(s.equalsIgnoreCase("Clear actions") && h.getActionTokens() == 0) {
+					allMoves.get(i).setScore(-1000);
+				}
+				
+				
+				
+			}
+
+			
+			return moves;
+		}
+		
+		*/
+}	
+
+
+/*
+//attacks locs for the attacks
+if(isAnAttack(s)){
+	attackLocs.add(s.substring(6, s.length()));
+	
+}
+//string locs for the moves
+if(isAMove(s)) {
+	moveLocs.add(s.substring(6, s.length()));
+}
+*/

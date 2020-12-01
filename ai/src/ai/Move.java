@@ -1,19 +1,23 @@
 package ai;
 
 public class Move {
-	String spot;
+	String action;
 	int score;
 	public Move(String l, int s) {
 		this.score = s;
-		this.spot = l;
+		this.action = l;
 	}
 	
-	public String getSpot(){
-		return spot;
+	public String getAction(){
+		return action;
 	}
 	
 	public int getScore() {
 		return score;
+	}
+	
+	public void setScore(int s) {
+		score = s;
 	}
 	
 	public void addToScore(int amt) {
