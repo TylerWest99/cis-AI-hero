@@ -392,5 +392,9 @@ public class Game {
 			return bestMove;
 		}
 		
+		public void printBestMove(Hero h, Board t) {
+			System.out.println(findHighestMove(h,t).getAction());
+		}
+		
 }	
 

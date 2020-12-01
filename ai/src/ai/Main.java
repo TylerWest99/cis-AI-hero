@@ -24,6 +24,6 @@ public class Main {
 			print(rankedMoves.get(i).getAction());
 			print(rankedMoves.get(i).getScore());
 		}
-		print(g.findHighestMove(g.cap, g.t).getAction());
+		g.printBestMove(g.cap, g.t);
 	}
 }
