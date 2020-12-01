@@ -15,22 +15,15 @@ public class Main {
 	public static void main(String[] args) {
 		Game g = new Game();
 		g.setLocs(g.cap, g.ironMan, g.thor, "A1", "P15", "P14");
-		g.setLocs(g.enemyCap, g.enemyIronMan, g.enemyThor, "A2", "P13", "P12");
-		//g.rankMoves(g.cap);
-		List<String> allEnemyAttacks = g.inSightsOfEnemies(g.cap, g.t);
-		for(int i = 0; i < allEnemyAttacks.size(); i++) {
-			print(allEnemyAttacks.get(i));
+		g.setLocs(g.enemyCap, g.enemyIronMan, g.enemyThor, "A4", "P13", "P12");
+		//g.capAddToken();
+		//g.capAddToken();
+		List<Move> rankedMoves = g.rankMoves(g.cap, g.t);
+		
+		for(int i = 0; i < rankedMoves.size(); i++) {
+			print(rankedMoves.get(i).getAction());
+			print(rankedMoves.get(i).getScore());
 		}
-
-		
-		
-		//gets team one moves
-		
-	
-
-		
-		
-		
-
+		print(g.findHighestMove(g.cap, g.t).getAction());
 	}
 }

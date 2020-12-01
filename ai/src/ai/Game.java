@@ -229,7 +229,7 @@ public class Game {
 		
 		//important method that sees if this hero can be attacked by enemies
 		//will be useful for attacking if I can attack and they cannot and for running away
-		public List<String> inSightsOfEnemies(Hero h, Board t) {
+		public boolean inSightOfEnemies(Hero h, Board t) {
 			List<Hero> allies = new ArrayList<Hero>();
 			List<Hero> foes = new ArrayList<Hero>();
 			List<String> allEnemyMoves = new ArrayList<String>();
@@ -254,14 +254,60 @@ public class Game {
 					}
 				}
 			}
-			return allEnemyMoves;
+			return Movement.isInList(allEnemyMoves, h.getLoc());
 		}
 		
-		/*
-		public List<Move> rankMoves (Hero h) {
+		public boolean inSightOfEnemiesString(Hero h, Board t, String s) {
+			List<Hero> allies = new ArrayList<Hero>();
+			List<Hero> foes = new ArrayList<Hero>();
+			List<String> allEnemyMoves = new ArrayList<String>();
+			//if enemy allies are enemies and foes are heros
+			if(h.getIsEnemy()) {
+				allies = enemies;
+				foes = heros;
+			//if hero allies are heros and foes are enemies
+			}else {
+				allies = heros;
+				foes = enemies;
+			}
+			//goes through each foe
+			for(int i = 0; i < foes.size(); i++) {
+				Hero foe = foes.get(i);
+				List<String> tempList = Movement.getAllPossibleAttacks(foe, t);
+				//makes a list of all possible attacks for that foe
+				for(int j = 0; j < tempList.size(); j++) {
+					//if not in the allEnemyMoves list adds it
+					if(!Movement.isInList(allEnemyMoves, tempList.get(j))) {
+						allEnemyMoves.add(tempList.get(j));
+					}
+				}
+			}
+			return Movement.isInList(allEnemyMoves, s);
+		}
+		
+		
+		public List<Move> rankMoves (Hero h, Board t) {
 			List<Move> allMoves = getMoves(h);
-			List<String> attackLocs = new ArrayList<String>();
-			List<String> moveLocs = new ArrayList<String>();
+			List<Hero> allies = new ArrayList<Hero>();
+			List<Hero> foes = new ArrayList<Hero>();
+			
+			//sets the allies and foes
+			if(h.getIsEnemy()) {
+				allies = enemies;
+				foes = heros;
+			//if hero allies are heros and foes are enemies
+			}else {
+				allies = heros;
+				foes = enemies;
+			}
+			
+			Hero foe1 = foes.get(0);
+			Hero foe2 = foes.get(1);
+			Hero foe3 = foes.get(2);
+			
+			String enemyLoc1 = foes.get(0).getLoc();
+			String enemyLoc2 = foes.get(1).getLoc();
+			String enemyLoc3 = foes.get(2).getLoc();
 			
 			//goes through every move and edits score variable to track how good a move is 
 			for(int i = 0; i < allMoves.size(); i++) {
@@ -269,35 +315,82 @@ public class Game {
 				
 				//sets the clear actions score depending on how many action tokens a hero has 
 				if(s.equalsIgnoreCase("Clear actions") && h.getActionTokens() == 2) {
-					allMoves.get(i).setScore(1000);
+					allMoves.get(i).setScore(1000000);
 				}
-				if(s.equalsIgnoreCase("Clear actions") && h.getActionTokens() == 1) {
-					allMoves.get(i).setScore(10);
+				else if(s.equalsIgnoreCase("Clear actions") && h.getActionTokens() == 1) {
+					allMoves.get(i).setScore(100);
 				}
-				if(s.equalsIgnoreCase("Clear actions") && h.getActionTokens() == 0) {
-					allMoves.get(i).setScore(-1000);
+				else if(s.equalsIgnoreCase("Clear actions") && h.getActionTokens() == 0) {
+					allMoves.get(i).setScore(-1000000);
 				}
 				
+				//bonuses to attack moves
+				if(isAnAttack(s)) {
+					//gets +500 if enemy cannot attack
+					if(!inSightOfEnemies(h,t) || (foe1.getActionTokens() == 2 && foe2.getActionTokens() == 2 && foe3.getActionTokens() == 2)) {
+						allMoves.get(i).addToScore(500);
+					}
+					//gets +250 if attacking a weak enemy or +100 for attacking a strong enemy -100 if they already have an action token
+					if(s.substring(8, s.length()).equalsIgnoreCase(enemyLoc1)){
+						if(foe1.getClick() <= foe1.totalClicks) {
+							allMoves.get(i).addToScore(250);
+						}else {
+							allMoves.get(i).addToScore(100);
+						}
+						if(h.getActionTokens() == 0) {
+							allMoves.get(i).addToScore(200);
+						}
+					}
+					if(s.substring(8, s.length()).equalsIgnoreCase(enemyLoc2)){
+						if(foe1.getClick() <= foe2.totalClicks) {
+							allMoves.get(i).addToScore(250);
+						}else {
+							allMoves.get(i).addToScore(100);
+						}
+						if(h.getActionTokens() == 1) {
+							allMoves.get(i).addToScore(200);
+						}
+					}
+					if(s.substring(8, s.length()).equalsIgnoreCase(enemyLoc3)){
+						if(foe1.getClick() <= foe3.totalClicks) {
+							allMoves.get(i).addToScore(250);
+						}else {
+							allMoves.get(i).addToScore(100);
+						}
+						if(h.getActionTokens() == 1) {
+							allMoves.get(i).addToScore(200);
+						}
+					}
+				}
 				
-				
+				if(isAMove(s)) {
+					if(inSightOfEnemies(h,t)) {
+						//if move is out of range to attack gives +200
+						if(!inSightOfEnemiesString(h,t,(s.substring(6, s.length())))) {
+							allMoves.get(i).addToScore(200);
+						}
+						//if move is in range -250
+						if(inSightOfEnemiesString(h,t,(s.substring(6, s.length())))) {
+							allMoves.get(i).addToScore(-250);
+						}
+					}
+				}
 			}
-
-			
-			return moves;
+			return allMoves;
 		}
 		
-		*/
+		public Move findHighestMove(Hero h, Board t) {
+			List<Move> movesWithScores = rankMoves(h,t);
+			int highestScore = -100000;
+			Move bestMove = new Move("", 0); 
+			for(int i = 0; i < movesWithScores.size(); i++) {
+				if(movesWithScores.get(i).getScore() > highestScore) {
+					bestMove = movesWithScores.get(i);
+					highestScore = bestMove.getScore();
+				}
+			}
+			return bestMove;
+		}
+		
 }	
 
-
-/*
-//attacks locs for the attacks
-if(isAnAttack(s)){
-	attackLocs.add(s.substring(6, s.length()));
-	
-}
-//string locs for the moves
-if(isAMove(s)) {
-	moveLocs.add(s.substring(6, s.length()));
-}
-*/

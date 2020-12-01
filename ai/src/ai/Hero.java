@@ -64,6 +64,11 @@ public class Hero {
 		return this.loc;
 	}
 	
+	//gets max click
+	public int maxClick() {
+		return this.totalClicks;
+	}
+	
 	//gets action tokens
 	public int getActionTokens() {
 		return this.actionTokens;
