@@ -13,6 +13,9 @@ public class Hero {
 	int range; 
 	int actionTokens;
 	boolean isKo;
+	boolean hasCharge;
+	boolean hasRunningShot;
+	boolean hasSideStep;
 	
 	//hero constructor and adds starting values
 	public Hero(String name, Boolean isEnemy) {
@@ -101,6 +104,9 @@ public class Hero {
 			this.actionTokens = 0;
 			this.isKo = false;
 			this.totalClicks = 6;
+			this.hasCharge = true;
+			this.hasSideStep = false;
+			this.hasRunningShot = false;
 		}
 		//sets start value for Thor 
 		if(heroName.equalsIgnoreCase("Thor")) {
@@ -113,6 +119,10 @@ public class Hero {
 			this.actionTokens = 0;
 			this.isKo = false;
 			this.totalClicks = 9;
+			this.hasCharge = true;
+			this.hasRunningShot = false;
+			this.hasSideStep = false;
+			
 		}
 		//sets start value for Iron Man 
 		if(heroName.equalsIgnoreCase("Iron Man")) {
@@ -125,6 +135,9 @@ public class Hero {
 			this.actionTokens = 0;
 			this.isKo = false;
 			this.totalClicks = 7;
+			this.hasCharge = false;
+			this.hasRunningShot = false;
+			this.hasRunningShot = false;
 		}
 	}
 	
@@ -179,12 +192,16 @@ public class Hero {
 			this.attack = 9;
 			this.defense = 16;
 			this.damage = 2;
+			this.hasCharge = false;
+			this.hasSideStep = true;
 		}
 		if(heroName.equalsIgnoreCase("Thor")) {
 			this.move = 11;
 			this.attack = 10;
 			this.defense = 17;
 			this.damage = 3;
+			this.hasCharge = false;
+			this.hasRunningShot = true;
 		}
 		if(heroName.equalsIgnoreCase("Iron Man")) {
 			this.move = 10;
@@ -255,6 +272,8 @@ public class Hero {
 			this.attack = 9;
 			this.defense = 17;
 			this.damage = 3;
+			this.hasRunningShot = false;
+			this.hasSideStep = true;
 		}
 		if(heroName.equalsIgnoreCase("Iron Man")) {
 			this.move = 9;
