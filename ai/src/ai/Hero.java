@@ -32,6 +32,11 @@ public class Hero {
 		this.actionTokens++;
 	}
 	
+	//removes an actionToken
+	public void removeActionToken() {
+		this.actionTokens--;
+	}
+	
 	//SETTERS
 	//sets a hero location
 	public void setLoc(String loc) {
