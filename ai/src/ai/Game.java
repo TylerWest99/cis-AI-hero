@@ -1,6 +1,7 @@
 package ai;
 import java.util.*;
 
+
 //class Game that talks to movement and hero to get simplified game info to be used by Gui and displayed to user 
 public class Game {
 	//makes all the game heros 
@@ -16,6 +17,7 @@ public class Game {
 	List<Hero> heros;
 	
 	Board t;
+	Random r;
 	
 		public Game() {
 			t = new Board();
@@ -36,6 +38,7 @@ public class Game {
 			enemies.add(enemyCap);
 			enemies.add(enemyIronMan);
 			enemies.add(enemyThor);
+			r = new Random();
 		}
 		
 		public boolean isHero(Hero h) {
@@ -337,14 +340,27 @@ public class Game {
 					else {
 						enemyLoc = "";
 					}
-					//gets +500 if enemy cannot attack
-					if(!inSightOfEnemies(h,t) || (foe1.getActionTokens() == 2 || foe2.getActionTokens() == 2 || foe3.getActionTokens() == 2)) {
-						if((foe1.getLoc().equals(enemyLoc) && foe1.getActionTokens() ==2) || (foe2.getLoc().equals(enemyLoc) && foe2.getActionTokens() ==2) || (foe3.getLoc().equals(enemyLoc) && foe3.getActionTokens() ==2)){     
-								allMoves.get(i).addToScore(500);
-							if(h.getActionTokens() == 1) {
-								allMoves.get(i).addToScore(-50);
-							}
+					//gets +500 if enemy cannot attack -50 if has a action token
+					if(!inSightOfEnemies(h,t)) {
+						allMoves.get(i).addToScore(500);
+						if(h.getActionTokens() == 1) {
+							allMoves.get(i).addToScore(-50);
 						}
+					}
+					//points awarded if the enemy has action tokens 
+					if((foe1.getActionTokens() == 2 || foe2.getActionTokens() == 2 || foe3.getActionTokens() == 2) || (foe1.getActionTokens() == 1 || foe2.getActionTokens() == 1 || foe3.getActionTokens() == 1)) {
+						//if enemy that our hero will attack has 2 action attack them
+						if((foe1.getLoc().equals(enemyLoc) && foe1.getActionTokens() ==2) || (foe2.getLoc().equals(enemyLoc) && foe2.getActionTokens() ==2) || (foe3.getLoc().equals(enemyLoc) && foe3.getActionTokens() ==2)) {
+							allMoves.get(i).addToScore(500);
+						}
+						//if the enemy that we could attack has an action token more point to attack but less than if it was 2 action tokens
+						if((foe1.getLoc().equals(enemyLoc) && foe1.getActionTokens() ==1) || (foe2.getLoc().equals(enemyLoc) && foe2.getActionTokens() ==1) || (foe3.getLoc().equals(enemyLoc) && foe3.getActionTokens() ==1)) {
+							allMoves.get(i).addToScore(150);
+						}
+						if((foe1.getLoc().equals(enemyLoc) && foe1.getActionTokens() ==0) || (foe2.getLoc().equals(enemyLoc) && foe2.getActionTokens() ==0) || (foe3.getLoc().equals(enemyLoc) && foe3.getActionTokens() ==0)) {
+							allMoves.get(i).addToScore(-100);
+						}
+						
 					}
 					
 					//gets +250 if attacking a weak enemy or +100 for attacking a strong enemy -100 if they already have an action token
@@ -358,9 +374,6 @@ public class Game {
 						if(h.getActionTokens() == 1) {
 							allMoves.get(i).addToScore(-100);
 						}
-						if(h.getActionTokens() == 0) {
-							allMoves.get(i).addToScore(100);
-						}
 					}
 					if(s.substring(8, s.length()).equalsIgnoreCase(enemyLoc2)){
 						//weak enemy
@@ -370,7 +383,7 @@ public class Game {
 							allMoves.get(i).addToScore(150);
 						}
 						if(h.getActionTokens() == 1) {
-							allMoves.get(i).addToScore(100);
+							allMoves.get(i).addToScore(-100);
 						}
 					}
 					if(s.substring(8, s.length()).equalsIgnoreCase(enemyLoc3)){
@@ -381,7 +394,7 @@ public class Game {
 							allMoves.get(i).addToScore(150);
 						}
 						if(h.getActionTokens() == 1) {
-							allMoves.get(i).addToScore(100);
+							allMoves.get(i).addToScore(-100);
 						}
 					}
 				}
@@ -398,6 +411,9 @@ public class Game {
 						}
 					}
 				}
+			}
+			for(int i = 0; i < allMoves.size(); i++) {
+				allMoves.get(i).addToScore(r.nextInt(16));
 			}
 			return allMoves;
 		}
