@@ -329,36 +329,46 @@ public class Game {
 					//gets +500 if enemy cannot attack
 					if(!inSightOfEnemies(h,t) || (foe1.getActionTokens() == 2 && foe2.getActionTokens() == 2 && foe3.getActionTokens() == 2)) {
 						allMoves.get(i).addToScore(500);
+						if(h.getActionTokens() == 1) {
+							allMoves.get(i).addToScore(-50);
+						}
 					}
+					
 					//gets +250 if attacking a weak enemy or +100 for attacking a strong enemy -100 if they already have an action token
 					if(s.substring(8, s.length()).equalsIgnoreCase(enemyLoc1)){
-						if(foe1.getClick() <= foe1.totalClicks) {
+						//weak enemy
+						if(foe1.getClick() >= foe1.totalClicks / 2) {
 							allMoves.get(i).addToScore(250);
 						}else {
-							allMoves.get(i).addToScore(100);
+							allMoves.get(i).addToScore(150);
+						}
+						if(h.getActionTokens() == 1) {
+							allMoves.get(i).addToScore(-100);
 						}
 						if(h.getActionTokens() == 0) {
-							allMoves.get(i).addToScore(200);
+							allMoves.get(i).addToScore(100);
 						}
 					}
 					if(s.substring(8, s.length()).equalsIgnoreCase(enemyLoc2)){
-						if(foe1.getClick() <= foe2.totalClicks) {
+						//weak enemy
+						if(foe1.getClick() >= foe2.totalClicks / 2) {
 							allMoves.get(i).addToScore(250);
 						}else {
-							allMoves.get(i).addToScore(100);
+							allMoves.get(i).addToScore(150);
 						}
 						if(h.getActionTokens() == 1) {
-							allMoves.get(i).addToScore(200);
+							allMoves.get(i).addToScore(100);
 						}
 					}
 					if(s.substring(8, s.length()).equalsIgnoreCase(enemyLoc3)){
-						if(foe1.getClick() <= foe3.totalClicks) {
+						//weak enemy
+						if(foe1.getClick() >= foe3.totalClicks / 2) {
 							allMoves.get(i).addToScore(250);
 						}else {
-							allMoves.get(i).addToScore(100);
+							allMoves.get(i).addToScore(150);
 						}
 						if(h.getActionTokens() == 1) {
-							allMoves.get(i).addToScore(200);
+							allMoves.get(i).addToScore(100);
 						}
 					}
 				}
