@@ -89,7 +89,7 @@ public class Game {
 		public void thorAddToken() {
 			thor.addActionToken();
 		}
-		public void EnemyCapAddToken() {
+		public void enemyCapAddToken() {
 			enemyCap.addActionToken();
 		}
 		public void enemyIronAddToken() {
@@ -109,7 +109,7 @@ public class Game {
 		public void thorAddClick() {
 			thor.addClick();
 		}
-		public void EnemyCapAddClick() {
+		public void enemyCapAddClick() {
 			enemyCap.addClick();
 		}
 		public void enemyIronAddClick() {
@@ -326,11 +326,24 @@ public class Game {
 				
 				//bonuses to attack moves
 				if(isAnAttack(s)) {
+					int length = s.length();
+					String enemyLoc;
+					if(length == 10) {
+						enemyLoc = s.substring(8,10);
+					}
+					else if(length == 11) {
+						enemyLoc = s.substring(8,11);
+					}
+					else {
+						enemyLoc = "";
+					}
 					//gets +500 if enemy cannot attack
-					if(!inSightOfEnemies(h,t) || (foe1.getActionTokens() == 2 && foe2.getActionTokens() == 2 && foe3.getActionTokens() == 2)) {
-						allMoves.get(i).addToScore(500);
-						if(h.getActionTokens() == 1) {
-							allMoves.get(i).addToScore(-50);
+					if(!inSightOfEnemies(h,t) || (foe1.getActionTokens() == 2 || foe2.getActionTokens() == 2 || foe3.getActionTokens() == 2)) {
+						if((foe1.getLoc().equals(enemyLoc) && foe1.getActionTokens() ==2) || (foe2.getLoc().equals(enemyLoc) && foe2.getActionTokens() ==2) || (foe3.getLoc().equals(enemyLoc) && foe3.getActionTokens() ==2)){     
+								allMoves.get(i).addToScore(500);
+							if(h.getActionTokens() == 1) {
+								allMoves.get(i).addToScore(-50);
+							}
 						}
 					}
 					
