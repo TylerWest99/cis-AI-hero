@@ -29,6 +29,9 @@ public class HeroClixInputPanel extends JPanel {
 	private JLabel locFoeIronMan;
 	private JLabel locFoeThor;
 	private JLabel locFoeCaptAmerica;
+	private JLabel ironManTokens;
+	private JLabel thorTokens;
+	private JLabel captAmericaTokens;
 	
 	//All the buttons used
 	private JButton addClicksIronMan;
@@ -41,6 +44,18 @@ public class HeroClixInputPanel extends JPanel {
 	private JButton moveIronMan;
 	private JButton moveThor;
 	private JButton moveCaptAmerica;
+	private JButton addIMActToken;
+	private JButton addThorActToken;
+	private JButton addCAActToken;
+	private JButton addFoeIMActToken;
+	private JButton addFoeThorActToken;
+	private JButton addFoeCAActToken;
+	private JButton rmIMActToken;
+	private JButton rmThorActToken;
+	private JButton rmCAActToken;
+	private JButton rmFoeIMActToken;
+	private JButton rmFoeThorActToken;
+	private JButton rmFoeCAActToken;
 	
 	
 	//All the textfields used
@@ -75,20 +90,23 @@ public class HeroClixInputPanel extends JPanel {
 		locFoeIronMan = new JLabel("Iron Man's Postion: ??");
 		locFoeThor = new JLabel("Thor's Position: ??");
 		locFoeCaptAmerica = new JLabel("Captiain America's Position: ??");
+		ironManTokens = new JLabel ("Hero 0 | Foe 0");
+		thorTokens = new JLabel ("Hero 0 | Foe 0");
+		captAmericaTokens = new JLabel ("Hero 0 | Foe 0");
 		
 		//Create all the buttons and link them to the button listener
 		ButtonListener butListener = new ButtonListener();
-		addClicksIronMan = new JButton("Click +1");
+		addClicksIronMan = new JButton("Click+1");
 		addClicksIronMan.addActionListener(butListener);
-		addClicksThor = new JButton("Click +1");
+		addClicksThor = new JButton("Click+1");
 		addClicksThor.addActionListener(butListener);
-		addClicksCaptAmerica = new JButton("Click +1");
+		addClicksCaptAmerica = new JButton("Click+1");
 		addClicksCaptAmerica.addActionListener(butListener);
-	    addClicksFoeIronMan = new JButton("Click +1");
+	    addClicksFoeIronMan = new JButton("Click+1");
 	    addClicksFoeIronMan.addActionListener(butListener);
-		addClicksFoeThor = new JButton("Click +1");
+		addClicksFoeThor = new JButton("Click+1");
 		addClicksFoeThor.addActionListener(butListener);
-		addClicksFoeCaptAmerica = new JButton("Click +1");
+		addClicksFoeCaptAmerica = new JButton("Click+1");
 		addClicksFoeCaptAmerica.addActionListener(butListener);
 		setLocations = new JButton("Save Positions");
 		setLocations.addActionListener(butListener);
@@ -98,6 +116,30 @@ public class HeroClixInputPanel extends JPanel {
 		moveThor.addActionListener(butListener);
 		moveCaptAmerica = new JButton ("Captain America's Move");
 		moveCaptAmerica.addActionListener(butListener);
+		addIMActToken = new JButton("+Token");
+		addIMActToken.addActionListener(butListener);
+		addThorActToken = new JButton("+Token");
+		addThorActToken.addActionListener(butListener);
+		addCAActToken = new JButton("+Token");
+		addCAActToken.addActionListener(butListener);
+		addFoeIMActToken = new JButton("+Token");
+		addFoeIMActToken.addActionListener(butListener);
+		addFoeThorActToken = new JButton("+Token");
+		addFoeThorActToken.addActionListener(butListener);
+		addFoeCAActToken = new JButton("+Token");
+		addFoeCAActToken.addActionListener(butListener);
+		rmIMActToken = new JButton("-Token");
+		rmIMActToken.addActionListener(butListener);
+		rmThorActToken = new JButton("-Token");
+		rmThorActToken.addActionListener(butListener);
+		rmCAActToken = new JButton("-Token");
+		rmCAActToken.addActionListener(butListener);
+		rmFoeIMActToken = new JButton("-Token");
+		rmFoeIMActToken.addActionListener(butListener);
+		rmFoeThorActToken = new JButton("-Token");
+		rmFoeThorActToken.addActionListener(butListener);
+		rmFoeCAActToken = new JButton("-Token");
+		rmFoeCAActToken.addActionListener(butListener);
 		
 		//Create all the text fields.
 		ironManLoc = new JTextField(4);
@@ -130,13 +172,13 @@ public class HeroClixInputPanel extends JPanel {
 		add(addClicksIronMan, l);
 		l.gridy = 3;
 		add(ironManLoc, l);
-		l.gridy = 4;
-		add(addClicksThor, l);
 		l.gridy = 5;
-		add(thorLoc, l);
+		add(addClicksThor, l);
 		l.gridy = 6;
+		add(thorLoc, l);
+		l.gridy = 8;
 		add(addClicksCaptAmerica, l);
-		l.gridy = 7;
+		l.gridy = 9;
 		add(captAmericaLoc, l);
 		
 		l.anchor = GridBagConstraints.WEST;
@@ -145,13 +187,13 @@ public class HeroClixInputPanel extends JPanel {
 		add(ironManClicks, l);
 		l.gridy = 3;
 		add(locIronMan, l);
-		l.gridy = 4;
-		add(thorClicks, l);
 		l.gridy = 5;
-		add(locThor, l);
+		add(thorClicks, l);
 		l.gridy = 6;
+		add(locThor, l);
+		l.gridy = 8;
 		add(captAmericaClicks, l);
-		l.gridy = 7;
+		l.gridy = 9;
 		add(locCaptAmerica, l);
 		
 		
@@ -162,13 +204,13 @@ public class HeroClixInputPanel extends JPanel {
 		add(addClicksFoeIronMan, l);
 		l.gridy = 3;
 		add(foeIronManLoc, l);
-		l.gridy = 4;
-		add(addClicksFoeThor, l);
 		l.gridy = 5;
-		add(foeThorLoc, l);
+		add(addClicksFoeThor, l);
 		l.gridy = 6;
+		add(foeThorLoc, l);
+		l.gridy = 8;
 		add(addClicksFoeCaptAmerica, l);
-		l.gridy = 7;
+		l.gridy = 9;
 		add(foeCaptAmericaLoc, l);
 		
 		l.anchor = GridBagConstraints.WEST;
@@ -177,13 +219,13 @@ public class HeroClixInputPanel extends JPanel {
 		add(foeIronManClicks, l);
 		l.gridy = 3;
 		add(locFoeIronMan, l);
-		l.gridy = 4;
-		add(foeThorClicks, l);
 		l.gridy = 5;
-		add(locFoeThor, l);
+		add(foeThorClicks, l);
 		l.gridy = 6;
+		add(locFoeThor, l);
+		l.gridy = 8;
 		add(foeCaptAmericaClicks, l);
-		l.gridy = 7;
+		l.gridy = 9;
 		add(locFoeCaptAmerica, l);
 		
 		//Place the move buttons for each hero.
@@ -191,9 +233,9 @@ public class HeroClixInputPanel extends JPanel {
 		l.gridx = 2;
 		l.gridy = 3;
 		add(moveIronMan, l);
-		l.gridy = 5;
+		l.gridy = 6;
 		add(moveThor, l);
-		l.gridy = 7;
+		l.gridy = 9;
 		add(moveCaptAmerica,l);
 		
 		//Set up the set location button.
@@ -201,10 +243,50 @@ public class HeroClixInputPanel extends JPanel {
 		l.gridy = 1;
 		add(setLocations,l);
 		
-		
 		//Set up the instructions for what we have to do.
-		l.gridy = 9;
+		l.gridy = 11;
 		add(aiInstructions,l);
+		
+		//Set up action token labels.
+		l.gridy = 4;
+		add(ironManTokens, l);
+		l.gridy = 7;
+		add(thorTokens, l);
+		l.gridy = 10;
+		add(captAmericaTokens, l);
+		
+		//Set up action token buttons
+		l.anchor = GridBagConstraints.EAST;
+		l.gridx = 0;
+		l.gridy = 4;
+		add(addIMActToken,l);
+		l.gridy = 7;
+		add(addThorActToken,l);
+		l.gridy = 10;
+		add(addCAActToken,l);
+		l.gridx = 3;
+		l.gridy = 4;
+		add(addFoeIMActToken,l);
+		l.gridy = 7;
+		add(addFoeThorActToken,l);
+		l.gridy = 10;
+		add(addFoeCAActToken,l);
+		
+		l.anchor = GridBagConstraints.WEST;
+		l.gridx = 1;
+		l.gridy = 4;
+		add(rmIMActToken,l);
+		l.gridy = 7;
+		add(rmThorActToken,l);
+		l.gridy = 10;
+		add(rmCAActToken,l);
+		l.gridx = 4;
+		l.gridy = 4;
+		add(rmFoeIMActToken,l);
+		l.gridy = 7;
+		add(rmFoeThorActToken,l);
+		l.gridy = 10;
+		add(rmFoeCAActToken,l);
 	}
 	
 	
@@ -257,6 +339,70 @@ public class HeroClixInputPanel extends JPanel {
 				locFoeIronMan.setText("Iron Man's Postion: " + foeIronManLoc.getText());
 				locFoeThor.setText("Thor's Position: " + foeThorLoc.getText());
 				locFoeCaptAmerica.setText("Captain America's Position: " + foeCaptAmericaLoc.getText());
+			}
+			
+			if(addIMActToken == e.getSource()) {
+				heroGame.ironAddToken();
+				ironManTokens.setText("Hero " + heroGame.ironMan.getActionTokens() + 
+						"| Foe " + heroGame.enemyIronMan.getActionTokens());
+			}
+			
+			if(addThorActToken == e.getSource()) {
+				heroGame.thorAddToken();
+				thorTokens.setText("Hero " + heroGame.thor.getActionTokens() + 
+						"| Foe " + heroGame.enemyThor.getActionTokens());
+			}
+			
+			if(addCAActToken == e.getSource()) {
+				heroGame.capAddToken();
+				captAmericaTokens.setText("Hero " + heroGame.cap.getActionTokens() + 
+						"| Foe " + heroGame.enemyCap.getActionTokens());
+			}
+			if(addFoeIMActToken == e.getSource()) {
+				heroGame.enemyIronAddToken();
+				ironManTokens.setText("Hero " + heroGame.ironMan.getActionTokens() + 
+						"| Foe " + heroGame.enemyIronMan.getActionTokens());
+			}
+			if(addFoeThorActToken == e.getSource()) {
+				heroGame.enemyThorAddToken();
+				thorTokens.setText("Hero " + heroGame.thor.getActionTokens() + 
+						"| Foe " + heroGame.enemyThor.getActionTokens());
+			}
+			if(addFoeCAActToken == e.getSource()) {
+				heroGame.EnemyCapAddToken();
+				captAmericaTokens.setText("Hero " + heroGame.cap.getActionTokens() + 
+						"| Foe " + heroGame.enemyCap.getActionTokens());
+				
+			}
+			if(rmIMActToken == e.getSource()) {
+				heroGame.ironRmToken();
+				ironManTokens.setText("Hero " + heroGame.ironMan.getActionTokens() + 
+						"| Foe " + heroGame.enemyIronMan.getActionTokens());
+			}
+			if(rmThorActToken == e.getSource()) {
+				heroGame.thorRmToken();
+				thorTokens.setText("Hero " + heroGame.thor.getActionTokens() + 
+						"| Foe " + heroGame.enemyThor.getActionTokens());
+			}
+			if(rmCAActToken == e.getSource()) {
+				heroGame.capRmToken();
+				captAmericaTokens.setText("Hero " + heroGame.cap.getActionTokens() + 
+						"| Foe " + heroGame.enemyCap.getActionTokens());
+			}
+			if(rmFoeIMActToken == e.getSource()) {
+				heroGame.enemyIronRmToken();
+				ironManTokens.setText("Hero " + heroGame.ironMan.getActionTokens() + 
+						"| Foe " + heroGame.enemyIronMan.getActionTokens());
+			}
+			if(rmFoeThorActToken == e.getSource()) {
+				heroGame.enemyThorRmToken();
+				thorTokens.setText("Hero " + heroGame.thor.getActionTokens() + 
+						"| Foe " + heroGame.enemyThor.getActionTokens());
+			}
+			if(rmFoeCAActToken == e.getSource()) {
+				heroGame.enemyCapRmToken();
+				captAmericaTokens.setText("Hero " + heroGame.cap.getActionTokens() + 
+						"| Foe " + heroGame.enemyCap.getActionTokens());
 			}
 			
 			if(moveIronMan == e.getSource()) {
