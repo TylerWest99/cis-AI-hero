@@ -297,32 +297,68 @@ public class HeroClixInputPanel extends JPanel {
 			
 			if(addClicksIronMan == e.getSource()) {
 				heroGame.ironAddClick();
+				heroGame.ironMan.updateHeroValues();
 				ironManClicks.setText("Iron Man Clicks: " + heroGame.ironMan.getClick());
+				if(heroGame.ironMan.isKoed()) {
+					ironManClicks.setForeground(Color.RED);
+					ironManClicks.setText("Iron Man Clicks: KO!");
+					addClicksIronMan.disable();
+				}
 			}
 			
 			if(addClicksThor == e.getSource()) {
 				heroGame.thorAddClick();
+				heroGame.thor.updateHeroValues();
 				thorClicks.setText("Thor Clicks: " + heroGame.thor.getClick());
+				if(heroGame.thor.isKoed()) {
+					thorClicks.setForeground(Color.RED);
+					thorClicks.setText("Thor Clicks: KO!");
+					addClicksThor.disable();
+				}
 			}
 			
 			if(addClicksCaptAmerica == e.getSource()){
 				heroGame.capAddClick();
+				heroGame.cap.updateHeroValues();
 				captAmericaClicks.setText("Captain America Clicks: " + heroGame.cap.getClick());
+				if(heroGame.cap.isKoed()) {
+					captAmericaClicks.setForeground(Color.RED);
+					captAmericaClicks.setText("Captain America Clicks: KO!");
+					addClicksCaptAmerica.disable();
+				}
 			}
 			
 			if(addClicksFoeIronMan == e.getSource()) {
 				heroGame.enemyIronAddClick();
+				heroGame.enemyIronMan.updateHeroValues();
 				foeIronManClicks.setText("Iron Man Clicks: " + heroGame.enemyIronMan.getClick());
+				if(heroGame.enemyIronMan.isKoed()) {
+					foeIronManClicks.setForeground(Color.RED);
+					foeIronManClicks.setText("Iron Man Clicks: KO!");
+					addClicksFoeIronMan.disable();
+				}
 			}
 			
 			if(addClicksFoeThor == e.getSource()) {
 				heroGame.enemyThorAddClick();
+				heroGame.enemyThor.updateHeroValues();
 				foeThorClicks.setText("Thor Clicks: " + heroGame.enemyThor.getClick());
+				if(heroGame.enemyThor.isKoed()) {
+					foeThorClicks.setForeground(Color.RED);
+					foeThorClicks.setText("Thor Clicks: KO!");
+					addClicksFoeThor.disable();
+				}
 			}
 			
 			if(addClicksFoeCaptAmerica == e.getSource()){
 				heroGame.EnemyCapAddClick();
+				heroGame.enemyCap.updateHeroValues();
 				foeCaptAmericaClicks.setText("Captain America Clicks: " + heroGame.enemyCap.getClick());
+				if(heroGame.enemyCap.isKoed()) {
+					foeCaptAmericaClicks.setForeground(Color.RED);
+					foeCaptAmericaClicks.setText("Captain America Clicks: KO!");
+					addClicksFoeCaptAmerica.disable();
+				}
 			}
 			
 			if(setLocations == e.getSource()) {
@@ -406,15 +442,15 @@ public class HeroClixInputPanel extends JPanel {
 			}
 			
 			if(moveIronMan == e.getSource()) {
-				//TODO fill in instructions here.
+				aiInstructions.setText("Iron Man " + heroGame.findHighestMove(heroGame.ironMan, heroGame.t).getAction());
 			}
 			
 			if(moveThor == e.getSource()) {
-				//TODO fill in instructions here.
+				aiInstructions.setText("Thor " + heroGame.findHighestMove(heroGame.thor, heroGame.t).getAction());
 			}
 			
 			if(moveCaptAmerica == e.getSource()) {
-				//TODO fill in instructions here.
+				aiInstructions.setText("Captain America " + heroGame.findHighestMove(heroGame.cap, heroGame.t).getAction());
 			}
 		}
 		
