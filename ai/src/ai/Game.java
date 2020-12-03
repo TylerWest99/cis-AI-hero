@@ -82,25 +82,44 @@ public class Game {
 			enemyThor.setLoc(loc);
 		}
 		
-		//ways to add action tokens for each
-		public void capAddToken() {
-			cap.addActionToken();
-		}
-		public void ironAddToken() {
-			ironMan.addActionToken();
-		}
-		public void thorAddToken() {
-			thor.addActionToken();
-		}
-		public void enemyCapAddToken() {
-			enemyCap.addActionToken();
-		}
-		public void enemyIronAddToken() {
-			enemyIronMan.addActionToken();
-		}
-		public void enemyThorAddToken() {
-			enemyThor.addActionToken();
-		}
+		//ways to add and remove action tokens for each
+		//ways to add & remove action tokens for each
+				public void capAddToken() {
+					cap.addActionToken();
+				}
+				public void capRmToken() {
+					cap.removeActionToken();
+				}
+				public void ironAddToken() {
+					ironMan.addActionToken();
+				}
+				public void ironRmToken() {
+					ironMan.removeActionToken();
+				}
+				public void thorAddToken() {
+					thor.addActionToken();
+				}
+				public void thorRmToken() {
+					thor.removeActionToken();
+				}
+				public void EnemyCapAddToken() {
+					enemyCap.addActionToken();
+				}
+				public void enemyCapRmToken() {
+					enemyCap.removeActionToken();
+				}
+				public void enemyIronAddToken() {
+					enemyIronMan.addActionToken();
+				}
+				public void enemyIronRmToken() {
+					enemyIronMan.removeActionToken();
+				}
+				public void enemyThorAddToken() {
+					enemyThor.addActionToken();
+				}
+				public void enemyThorRmToken() {
+					enemyThor.removeActionToken();
+				}
 		
 		//ways to add click to each
 		public void capAddClick() {
