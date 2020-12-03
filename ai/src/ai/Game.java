@@ -415,7 +415,7 @@ public class Game {
 			}
 			//adds a small element of random if all else is the same
 			for(int i = 0; i < allMoves.size(); i++) {
-				//allMoves.get(i).addToScore(r.nextInt(26));
+				allMoves.get(i).addToScore(r.nextInt(15));
 			}
 			return allMoves;
 		}
