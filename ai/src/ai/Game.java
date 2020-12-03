@@ -400,10 +400,11 @@ public class Game {
 				}
 				
 				if(isAMove(s)) {
+					//if hero is is range of enemy attack
 					if(inSightOfEnemies(h,t)) {
 						//if move is out of range to attack gives +200
 						if(!inSightOfEnemiesString(h,t,(s.substring(6, s.length())))) {
-							allMoves.get(i).addToScore(200);
+							allMoves.get(i).addToScore(100);
 						}
 						//if move is in range -250
 						if(inSightOfEnemiesString(h,t,(s.substring(6, s.length())))) {
@@ -412,8 +413,9 @@ public class Game {
 					}
 				}
 			}
+			//adds a small element of random if all else is the same
 			for(int i = 0; i < allMoves.size(); i++) {
-				allMoves.get(i).addToScore(r.nextInt(16));
+				//allMoves.get(i).addToScore(r.nextInt(26));
 			}
 			return allMoves;
 		}
